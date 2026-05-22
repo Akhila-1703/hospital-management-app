@@ -90,7 +90,7 @@ function AdminDashboard() {
     }
     try {
       setLoading(true);
-      const res = await axios.post("http://localhost:4000/admin-api/create-doctor", newDoctor);
+      const res = await axios.post("/admin-api/create-doctor", newDoctor);
       toast.success(res.data.message);
       
       setShowAddModal(false);
@@ -122,7 +122,7 @@ function AdminDashboard() {
   // FETCH STATS
   const getStats = useCallback(async () => {
     try {
-      const res = await axios.get("http://localhost:4000/admin-api/stats");
+      const res = await axios.get("/admin-api/stats");
       setStats(res.data.payload);
     } catch (err) {
       console.log(err);
@@ -134,7 +134,7 @@ function AdminDashboard() {
   const getRecentUsers = useCallback(async () => {
     try {
       const res = await axios.get(
-        "http://localhost:4000/admin-api/recent-users"
+        "/admin-api/recent-users"
       );
       setRecentUsers(res.data.payload);
     } catch (err) {
@@ -147,7 +147,7 @@ function AdminDashboard() {
   const getDoctors = useCallback(async () => {
     try {
       const res = await axios.get(
-        "http://localhost:4000/admin-api/doctors"
+        "/admin-api/doctors"
       );
       setDoctors(res.data.payload);
     } catch (err) {
@@ -160,7 +160,7 @@ function AdminDashboard() {
   const getPatients = useCallback(async () => {
     try {
       const res = await axios.get(
-        "http://localhost:4000/admin-api/patients"
+        "/admin-api/patients"
       );
       setPatients(res.data.payload);
     } catch (err) {
@@ -173,7 +173,7 @@ function AdminDashboard() {
   const getAppointments = useCallback(async () => {
     try {
       const res = await axios.get(
-        "http://localhost:4000/admin-api/all-appointments"
+        "/admin-api/all-appointments"
       );
       setAppointments(res.data.payload);
     } catch (err) {
@@ -186,7 +186,7 @@ function AdminDashboard() {
   const getPrescriptions = useCallback(async () => {
     try {
       const res = await axios.get(
-        "http://localhost:4000/admin-api/all-prescriptions"
+        "/admin-api/all-prescriptions"
       );
       setPrescriptions(res.data.payload);
     } catch (err) {
@@ -201,7 +201,7 @@ function AdminDashboard() {
       setLoading(true);
       const endpoint = role === "DOCTOR" ? `/admin-api/doctor/${id}` : `/admin-api/patient/${id}`;
       
-      const res = await axios.put(`http://localhost:4000${endpoint}`);
+      const res = await axios.put(`${endpoint}`);
       
       toast.success(res.data.message);
       
@@ -222,7 +222,7 @@ function AdminDashboard() {
   const downloadPrescription = async (prescriptionId) => {
     try {
       const response = await axios.get(
-        `http://localhost:4000/prescription-api/${prescriptionId}/pdf`,
+        `/prescription-api/${prescriptionId}/pdf`,
         {
           responseType: "blob",
         }

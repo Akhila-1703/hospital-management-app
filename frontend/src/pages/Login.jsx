@@ -28,7 +28,7 @@ function Login() {
 
     try {
       const res = await axios.get(
-        "http://localhost:4000/patient-api/profile",
+        "/patient-api/profile",
         {
           headers: { Authorization: `Bearer ${token}` },
         }
@@ -55,7 +55,7 @@ function Login() {
   
     try {
       const res = await axios.get(
-        "http://localhost:4000/doctor-api/profile",
+        "/doctor-api/profile",
         {
           headers: { Authorization: `Bearer ${token}` },
         }

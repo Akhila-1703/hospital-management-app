@@ -135,7 +135,7 @@ function Doctors() {
     const fetchDoctors = async () => {
       try {
         const res = await axios.get(
-          "http://localhost:4000/common-api/doctors"
+          "/common-api/doctors"
         );
 
         const docList = res.data.payload || [];
@@ -320,7 +320,7 @@ function Doctors() {
                     doc.profileImage
                       ? doc.profileImage.startsWith("http")
                         ? doc.profileImage
-                        : `http://localhost:4000${doc.profileImage}`
+                        : `${doc.profileImage}`
                       : "https://cdn-icons-png.flaticon.com/512/149/149071.png"
                   }
                   alt={doc.userId?.name}

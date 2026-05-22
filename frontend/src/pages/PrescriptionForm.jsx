@@ -44,7 +44,7 @@ function PrescriptionForm() {
   const fetchAppointment = useCallback(async () => {
     try {
       const res = await axios.get(
-        `http://localhost:4000/doctor-api/appointment/${id}`,
+        `/doctor-api/appointment/${id}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -138,7 +138,7 @@ function PrescriptionForm() {
       // Check existing prescription
       try {
         const existing = await axios.get(
-          `http://localhost:4000/prescription-api/appointment/${id}`
+          `/prescription-api/appointment/${id}`
         );
 
         if (existing.data.payload) {
@@ -165,7 +165,7 @@ function PrescriptionForm() {
       };
 
       const res = await axios.post(
-        "http://localhost:4000/prescription-api",
+        "/prescription-api",
         payload,
         {
           headers: {

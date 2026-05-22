@@ -54,7 +54,7 @@ function AddDoctor() {
     try {
       setPasswordLoading(true);
       await axios.put(
-        "http://localhost:4000/common-api/change-password",
+        "/common-api/change-password",
         {
           email: currentUser?.email,
           currentPassword: passwordForm.currentPassword,
@@ -98,7 +98,7 @@ function AddDoctor() {
       try {
         setLoading(true);
         const res = await axios.get(
-          "http://localhost:4000/doctor-api/profile",
+          "/doctor-api/profile",
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -165,7 +165,7 @@ function AddDoctor() {
     setUploading(true);
     try {
       const res = await axios.post(
-        "http://localhost:4000/doctor-api/upload-image",
+        "/doctor-api/upload-image",
         data,
         {
           headers: {
@@ -221,7 +221,7 @@ function AddDoctor() {
     try {
       setSaving(true);
       await axios.post(
-        "http://localhost:4000/doctor-api/profile",
+        "/doctor-api/profile",
         {
           ...formData,
           experience: Number(formData.experience)

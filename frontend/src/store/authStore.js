@@ -37,7 +37,7 @@ export const useAuth = create((set) => ({
       });
 
       const res = await axios.post(
-        "http://localhost:4000/common-api/login",
+        "/common-api/login",
         userCredObj
       );
 
@@ -77,7 +77,7 @@ export const useAuth = create((set) => ({
       });
 
       await axios.get(
-        "http://localhost:4000/common-api/logout",
+        "/common-api/logout",
         {
           withCredentials: true,
         }

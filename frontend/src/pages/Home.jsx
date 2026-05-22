@@ -67,7 +67,7 @@ function Home() {
   // Fetch doctors list for our interactive Quick-Booking search widget
   useEffect(() => {
     axios
-      .get("http://localhost:4000/common-api/doctors")
+      .get("/common-api/doctors")
       .then((res) => {
         const docList = res.data.payload || [];
         setDoctors(docList);

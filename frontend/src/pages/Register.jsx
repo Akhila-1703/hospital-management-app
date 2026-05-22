@@ -24,7 +24,7 @@ function Register() {
     setError(null);
 
     try {
-      const url = "http://localhost:4000/patient-api/register";
+      const url = "/patient-api/register";
 
       const userObj = {
         name: newUser.name,

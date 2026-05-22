@@ -23,13 +23,28 @@ const app = exp();
 
 
 // MIDDLEWARE
+const allowedOrigins = process.env.CORS_ORIGIN
+  ? process.env.CORS_ORIGIN.split(",").map((origin) => origin.trim())
+  : [
+      "http://localhost:5173",
+      "http://localhost:5174",
+      "https://hospital-management-gyg8sxoz7-akhilas-projects-29fa9b92.vercel.app",
+    ];
+
 const corsOptions = {
-  origin: ["http://localhost:5173", "http://localhost:5174"],
+  origin: (origin, callback) => {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
   credentials: true,
   methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
-  allowedHeaders: ["Content-Type", "Authorization", "Accept", "Origin", "X-Requested-With"]
+  allowedHeaders: ["Content-Type", "Authorization", "Accept", "Origin", "X-Requested-With"],
 };
 
+app.set("trust proxy", 1);
 app.use(cors(corsOptions));
 
 app.use(exp.json());

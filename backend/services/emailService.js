@@ -137,8 +137,9 @@ export const sendDoctorCredentials = async ({ email, name, password }) => {
   const pass = process.env.SMTP_PASS;
 
   const subject = `🏥 Your Doctor Login Credentials - People Care Hospital`;
+  const loginUrl = process.env.FRONTEND_URL || "https://hospital-management-gyg8sxoz7-akhilas-projects-29fa9b92.vercel.app";
   
-  const textContent = `Hello Dr. ${name},\n\nWelcome to People Care International Hospital. An administrator has created your doctor account. Below are your login credentials:\n\nLogin URL: http://localhost:5173/login\nEmail: ${email}\nPassword: ${password}\n\nPlease log in and change your password for security.\n\nBest regards,\nHospital Management System`;
+  const textContent = `Hello Dr. ${name},\n\nWelcome to People Care International Hospital. An administrator has created your doctor account. Below are your login credentials:\n\nLogin URL: ${loginUrl}/login\nEmail: ${email}\nPassword: ${password}\n\nPlease log in and change your password for security.\n\nBest regards,\nHospital Management System`;
 
   const htmlContent = `
     <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; max-width: 600px; margin: 0 auto; border: 1px solid #e0e0e0; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.05);">
@@ -154,7 +155,7 @@ export const sendDoctorCredentials = async ({ email, name, password }) => {
           <table style="width: 100%; border-collapse: collapse; font-size: 15px;">
             <tr>
               <td style="padding: 6px 0; color: #6b7280; width: 100px; font-weight: 500;">Portal URL:</td>
-              <td style="padding: 6px 0; color: #0071e3; font-weight: 600;"><a href="http://localhost:5173/login" style="color: #0071e3; text-decoration: none;">http://localhost:5173/login</a></td>
+              <td style="padding: 6px 0; color: #0071e3; font-weight: 600;"><a href="${loginUrl}/login" style="color: #0071e3; text-decoration: none;">${loginUrl}/login</a></td>
             </tr>
             <tr>
               <td style="padding: 6px 0; color: #6b7280; font-weight: 500;">Email:</td>
@@ -212,7 +213,7 @@ export const sendDoctorCredentials = async ({ email, name, password }) => {
     console.log("-".repeat(80));
     console.log(`To:        Dr. ${name} <${email}>`);
     console.log(`Subject:   ${subject}`);
-    console.log(`Login URL: http://localhost:5173/login`);
+    console.log(`Login URL: ${loginUrl}/login`);
     console.log(`Password:  ${password}`);
     console.log("-".repeat(80));
     console.log("Body Preview:");

@@ -44,14 +44,14 @@ function MinimalBookAppointment({ fetchAppointments }) {
     setCheckingProfile(true);
 
     axios
-      .get("http://localhost:4000/doctor-api/doctors", {
+      .get("/doctor-api/doctors", {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((res) => setDoctors(res.data.payload))
       .catch((err) => console.error(err));
 
     axios
-      .get("http://localhost:4000/patient-api/profile", {
+      .get("/patient-api/profile", {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((res) => {
@@ -104,7 +104,7 @@ function MinimalBookAppointment({ fetchAppointments }) {
       };
 
       const res = await axios.post(
-        "http://localhost:4000/patient-api/appointment",
+        "/patient-api/appointment",
         formattedData,
         {
           headers: {

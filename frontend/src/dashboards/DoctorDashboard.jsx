@@ -24,7 +24,7 @@ function DoctorDashboard() {
   const fetchDoctor = useCallback(async () => {
     try {
       const res = await axios.get(
-        "http://localhost:4000/doctor-api/profile",
+        "/doctor-api/profile",
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -49,7 +49,7 @@ function DoctorDashboard() {
   const fetchAppointments = useCallback(async () => {
     try {
       const res = await axios.get(
-        "http://localhost:4000/doctor-api/appointments",
+        "/doctor-api/appointments",
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -83,14 +83,14 @@ function DoctorDashboard() {
     try {
       // Get prescription by appointment id
       const prescriptionRes = await axios.get(
-        `http://localhost:4000/prescription-api/appointment/${appointmentId}`
+        `/prescription-api/appointment/${appointmentId}`
       );
 
       const prescriptionId = prescriptionRes.data.payload._id;
 
       // Download PDF using prescription id
       const response = await axios.get(
-        `http://localhost:4000/prescription-api/${prescriptionId}/pdf`,
+        `/prescription-api/${prescriptionId}/pdf`,
         {
           responseType: "blob",
         }
@@ -113,7 +113,7 @@ function DoctorDashboard() {
   const handleMarkCompleted = async (appointmentId) => {
     try {
       await axios.put(
-        `http://localhost:4000/doctor-api/appointment/${appointmentId}/complete`,
+        `/doctor-api/appointment/${appointmentId}/complete`,
         {},
         {
           headers: {
@@ -139,7 +139,7 @@ function DoctorDashboard() {
   const handleApprove = async (appointmentId) => {
     try {
       await axios.put(
-        `http://localhost:4000/doctor-api/appointment/${appointmentId}/approve`,
+        `/doctor-api/appointment/${appointmentId}/approve`,
         {},
         {
           headers: {
@@ -168,7 +168,7 @@ function DoctorDashboard() {
     }
     try {
       await axios.put(
-        `http://localhost:4000/doctor-api/appointment/${appointmentId}/cancel`,
+        `/doctor-api/appointment/${appointmentId}/cancel`,
         {},
         {
           headers: {

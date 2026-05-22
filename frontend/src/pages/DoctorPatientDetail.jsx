@@ -27,7 +27,7 @@ function DoctorPatientDetail() {
   const fetchAppointmentDetails = useCallback(async () => {
     try {
       const res = await axios.get(
-        `http://localhost:4000/doctor-api/appointment/${appointmentId}`,
+        `/doctor-api/appointment/${appointmentId}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -52,7 +52,7 @@ function DoctorPatientDetail() {
   const handleApprove = async () => {
     try {
       await axios.put(
-        `http://localhost:4000/doctor-api/appointment/${appointmentId}/approve`,
+        `/doctor-api/appointment/${appointmentId}/approve`,
         {},
         {
           headers: { Authorization: `Bearer ${token}` },
@@ -72,7 +72,7 @@ function DoctorPatientDetail() {
     }
     try {
       await axios.put(
-        `http://localhost:4000/doctor-api/appointment/${appointmentId}/cancel`,
+        `/doctor-api/appointment/${appointmentId}/cancel`,
         {},
         {
           headers: { Authorization: `Bearer ${token}` },
@@ -89,7 +89,7 @@ function DoctorPatientDetail() {
   const handleMarkCompleted = async () => {
     try {
       await axios.put(
-        `http://localhost:4000/doctor-api/appointment/${appointmentId}/complete`,
+        `/doctor-api/appointment/${appointmentId}/complete`,
         {},
         {
           headers: { Authorization: `Bearer ${token}` },
@@ -106,11 +106,11 @@ function DoctorPatientDetail() {
   const downloadPrescription = async () => {
     try {
       const prescriptionRes = await axios.get(
-        `http://localhost:4000/prescription-api/appointment/${appointmentId}`
+        `/prescription-api/appointment/${appointmentId}`
       );
       const prescriptionId = prescriptionRes.data.payload._id;
       const response = await axios.get(
-        `http://localhost:4000/prescription-api/${prescriptionId}/pdf`,
+        `/prescription-api/${prescriptionId}/pdf`,
         { responseType: "blob" }
       );
       const url = window.URL.createObjectURL(new Blob([response.data]));

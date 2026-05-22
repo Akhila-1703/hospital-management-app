@@ -23,8 +23,13 @@ commonRouter.post("/login", async (req, res, next) => {
       { expiresIn: "1d" }
     )
 
-    // set cookie
-    res.cookie("token", token, { httpOnly: true, sameSite: "lax" })
+    const cookieOptions = {
+      httpOnly: true,
+      sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+      secure: process.env.NODE_ENV === "production",
+    };
+
+    res.cookie("token", token, cookieOptions)
 
     res.status(200).json({
       success: true,
@@ -74,12 +79,13 @@ commonRouter.get("/doctors", async (req, res, next) => {
 
 // LOGOUT
 commonRouter.get("/logout", (req, res) => {
-
-  res.clearCookie("token", {
+  const cookieOptions = {
     httpOnly: true,
-    sameSite: "lax",
-    secure: false
-  });
+    sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+    secure: process.env.NODE_ENV === "production",
+  };
+
+  res.clearCookie("token", cookieOptions);
 
   res.status(200).json({
     message: "Logged out successfully"

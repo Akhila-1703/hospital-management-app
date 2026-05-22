@@ -42,7 +42,7 @@ function PatientProfile() {
     try {
       setPasswordLoading(true);
       await axios.put(
-        "http://localhost:4000/common-api/change-password",
+        "/common-api/change-password",
         {
           email: currentUser?.email,
           currentPassword: passwordForm.currentPassword,
@@ -82,7 +82,7 @@ function PatientProfile() {
       try {
         setLoading(true);
         const res = await axios.get(
-          "http://localhost:4000/patient-api/profile",
+          "/patient-api/profile",
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -148,7 +148,7 @@ function PatientProfile() {
     setUploadingReport(true);
     try {
       const res = await axios.post(
-        "http://localhost:4000/patient-api/upload-report",
+        "/patient-api/upload-report",
         data,
         {
           headers: {
@@ -209,7 +209,7 @@ function PatientProfile() {
     setUploadingReport(true);
     try {
       const res = await axios.post(
-        "http://localhost:4000/patient-api/upload-report",
+        "/patient-api/upload-report",
         data,
         {
           headers: {
@@ -228,7 +228,7 @@ function PatientProfile() {
       };
 
       await axios.post(
-        "http://localhost:4000/patient-api/profile",
+        "/patient-api/profile",
         profileData,
         {
           headers: {
@@ -264,7 +264,7 @@ function PatientProfile() {
       };
 
       await axios.post(
-        "http://localhost:4000/patient-api/profile",
+        "/patient-api/profile",
         profileData,
         {
           headers: {
@@ -300,7 +300,7 @@ function PatientProfile() {
       setSaving(true);
 
       await axios.post(
-        "http://localhost:4000/patient-api/profile",
+        "/patient-api/profile",
         formData,
         {
           headers: {

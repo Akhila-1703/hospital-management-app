@@ -29,7 +29,7 @@ function PatientDashboard() {
   const fetchProfile = useCallback(async () => {
     try {
       const res = await axios.get(
-        "http://localhost:4000/patient-api/profile",
+        "/patient-api/profile",
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -49,7 +49,7 @@ function PatientDashboard() {
   const fetchAppointments = useCallback(async () => {
     try {
       const res = await axios.get(
-        "http://localhost:4000/patient-api/appointments",
+        "/patient-api/appointments",
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -88,7 +88,7 @@ function PatientDashboard() {
       // Get prescription by appointment id
       const prescriptionRes =
         await axios.get(
-          `http://localhost:4000/prescription-api/appointment/${appointmentId}`
+          `/prescription-api/appointment/${appointmentId}`
         );
   
       const prescriptionId =
@@ -96,7 +96,7 @@ function PatientDashboard() {
   
       // Download PDF using prescription id
       const response = await axios.get(
-        `http://localhost:4000/prescription-api/${prescriptionId}/pdf`,
+        `/prescription-api/${prescriptionId}/pdf`,
         {
           responseType: "blob",
         }

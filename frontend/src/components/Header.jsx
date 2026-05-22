@@ -390,7 +390,7 @@ function Header() {
                       currentUser?.profileImage
                         ? currentUser.profileImage.startsWith("http")
                           ? currentUser.profileImage
-                          : `http://localhost:4000${currentUser.profileImage}`
+                          : `${currentUser.profileImage}`
                         : "https://cdn-icons-png.flaticon.com/512/149/149071.png"
                     }
 
