@@ -23,12 +23,21 @@ const app = exp();
 
 
 // MIDDLEWARE
-const allowedOrigins = process.env.CORS_ORIGIN
-  ? process.env.CORS_ORIGIN.split(",").map((origin) => origin.trim())
+const envOrigins = [];
+if (process.env.CORS_ORIGIN) {
+  envOrigins.push(...process.env.CORS_ORIGIN.split(",").map((origin) => origin.trim()));
+}
+if (process.env.FRONTEND_URL) {
+  envOrigins.push(process.env.FRONTEND_URL.trim());
+}
+
+const allowedOrigins = envOrigins.length
+  ? envOrigins
   : [
       "http://localhost:5173",
       "http://localhost:5174",
       "https://hospital-management-gyg8sxoz7-akhilas-projects-29fa9b92.vercel.app",
+      "https://hospital-management-f7nxsynzb-akhilas-projects-29fa9b92.vercel.app",
     ];
 
 const corsOptions = {
@@ -42,6 +51,7 @@ const corsOptions = {
   credentials: true,
   methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization", "Accept", "Origin", "X-Requested-With"],
+  optionsSuccessStatus: 200,
 };
 
 app.set("trust proxy", 1);
