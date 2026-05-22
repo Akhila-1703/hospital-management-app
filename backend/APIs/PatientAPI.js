@@ -3,7 +3,7 @@ import bcrypt from "bcryptjs";
 import { verifyToken } from "../middleware/verifyToken.js";
 
 import { UserTypeModel } from "../models/UserModel.js";
-import { PatientModel } from "../models/patientModel.js";
+import { PatientModel } from "../models/PatientModel.js";
 import { DoctorModel } from "../models/DoctorModel.js";
 import { AppointmentModel } from "../models/AppointmentModel.js";
 
