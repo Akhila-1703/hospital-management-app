@@ -1,0 +1,210 @@
+### doctor register
+POST http://localhost:4000/doctor-api/register
+Content-Type: application/json
+
+{
+  "name": "Ravi Kumar",
+  "email": "doctor30@gmail.com",
+  "password": "123456",
+  "phoneNumber": "7876059210"
+}
+
+### create doctor profile
+POST http://localhost:4000/doctor-api/profile
+Content-Type: application/json
+
+{
+  "dob": "1990-05-10",
+  "specialization": "Cardiology",
+  "experience": 8,
+  "qualification": "MBBS, MD",
+  "availableDays": ["Monday", "Wednesday", "Friday"],
+  "availableTime": "10AM - 4PM",
+  "profileImage": "/uploads/doctor1.png"
+}
+
+### read doctor profile
+GET http://localhost:4000/doctor-api/profile
+
+
+### patient register
+POST http://localhost:4000/patient-api/register
+Content-Type: application/json
+
+{
+  "name": "Rahul",
+  "email": "patient3@gmail.com",
+  "password": "123456",
+  "phoneNumber": "9086953210"
+}
+
+### create patient profile
+POST http://localhost:4000/patient-api/profile
+Content-Type: application/json
+
+{
+  "age": 22,
+  "gender": "FEMALE",
+  "address": "Hyderabad, Telangana",
+  "bloodGroup": "B+",
+  "medicalHistory": "No major illnesses"
+}
+
+### read patient profile
+GET http://localhost:4000/patient-api/profile
+
+
+### login
+POST http://localhost:4000/common-api/login
+Content-Type: application/json
+
+{
+  "email": "testpatient20@mail.com",
+  "password": "testpatient20"
+}
+
+### read all doctors 
+GET http://localhost:4000/common-api/doctors
+
+
+### read doctors by serach
+GET http://localhost:4000/common-api/doctors?search=cardio
+
+
+###change password
+PUT http://localhost:4000/common-api/change-password
+Content-Type: application/json
+
+{
+  "email": "patient2@gmail.com",
+  "currentPassword": "123456",
+  "newPassword": "12345679"
+}
+
+
+### ADMIN - GET ALL DOCTORS
+GET http://localhost:4000/admin-api/doctors
+
+
+### ADMIN - GET ALL PATIENTS
+GET http://localhost:4000/admin-api/patients
+
+
+### ADMIN - DEACTIVATE DOCTOR
+PUT http://localhost:4000/admin-api/doctor/69b7c9ea55cbb8776dfc5de5
+Content-Type: application/json
+
+{
+  "isActive": false
+}
+
+
+### ADMIN - DEACTIVATE PATIENT
+PUT http://localhost:4000/admin-api/patient/69b7ca7655cbb8776dfc5de8
+Content-Type: application/json
+
+{
+  "isActive": false
+}
+
+###
+GET http://localhost:4000/admin-api/appointments
+
+
+### GET DOCTOR APPOINTMENTS
+GET http://localhost:4000/doctor-api/appointments/69b7c9ea55cbb8776dfc5de5
+
+
+###
+
+### UPDATE APPOINTMENT STATUS
+PUT http://localhost:4000/doctor-api/appointment/69b8098bfc3d924613b7c145
+Content-Type: application/json
+
+{
+  "status": "COMPLETED"
+}
+
+###
+
+### CREATE PRESCRIPTION
+POST http://localhost:4000/doctor-api/prescription
+Content-Type: application/json
+
+{
+  "appointmentId": "69b8098bfc3d924613b7c145",
+  "doctorId": "69b7c4fd91a13229cd66b4f5",
+  "patientId": "69b7cd70adb026b610a21ec5",
+  "diagnosis": "High BP",
+  "medicines": [
+    {
+      "name": "Atenolol",
+      "dosage": "1 tablet",
+      "duration": "7 days"
+    }
+  ],
+  "notes": "Take after food"
+}
+
+###
+
+### VIEW PATIENT REPORTS
+GET http://localhost:4000/doctor-api/reports/PATIENT_ID
+Authorization: Bearer YOUR_TOKEN
+
+###
+
+### REGISTER PATIENT PROFILE
+POST http://localhost:4000/patient-api/profile
+Content-Type: application/json
+
+{
+  "userId": "PATIENT_USER_ID",
+  "age": 25,
+  "gender": "MALE",
+  "address": "Hyderabad",
+  "bloodGroup": "B+",
+  "medicalHistory": "Diabetes"
+}
+
+###
+
+### BOOK APPOINTMENT
+POST http://localhost:4000/patient-api/appointment
+Content-Type: application/json
+
+{
+  "patientId": "69b7cd70adb026b610a21ec5",
+  "doctorId": "69b7c4fd91a13229cd66b4f5",
+  "specialization":"cardiology",
+  "appointmentDate": "2026-04-02",
+  "appointmentTime": "11:00 AM",
+  "reason": "Chest pain"
+}
+
+###
+
+### GET PATIENT APPOINTMENTS
+GET http://localhost:4000/patient-api/appointments/69b7cd70adb026b610a21ec5
+
+
+###
+
+### GET PATIENT PRESCRIPTIONS
+GET http://localhost:4000/patient-api/prescriptions/69b7cd70adb026b610a21ec5
+
+
+### GET REPORTS
+GET http://localhost:4000/patient-api/reports
+
+### UPLOAD MEDICAL REPORT
+POST http://localhost:4000/patient-api/report
+Content-Type: application/json
+Authorization: Bearer YOUR_TOKEN
+
+{
+  "patientId": "PATIENT_ID",
+  "doctorId": "DOCTOR_ID",
+  "fileUrl": "https://cloudinary.com/report123",
+  "fileType": "pdf"
+}

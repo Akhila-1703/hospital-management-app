@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+  <defs>
+    <linearGradient id="blueTeal" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2563eb" />
+      <stop offset="100%" stop-color="#0d9488" />
+    </linearGradient>
+  </defs>
+  <!-- Background Rounded Rect with modern gradient -->
+  <rect width="100" height="100" rx="28" fill="url(#blueTeal)" />
+  <!-- Heart-like accent backdrop -->
+  <path d="M 50,32 C 43,22 30,22 30,35 C 30,52 50,70 50,70 C 50,70 70,52 70,35 C 70,22 57,22 50,32 Z" fill="#ffffff" opacity="0.15" />
+  <!-- Bold Medical Cross -->
+  <path d="M 50,28 V 72 M 28,50 H 72" stroke="#ffffff" stroke-width="13" stroke-linecap="round" />
+  <!-- Innermost decorative heart line -->
+  <path d="M 50,35 C 46,28 36,28 36,37 C 36,49 50,62 50,62 C 50,62 64,49 64,37 C 64,28 54,28 50,35 Z" fill="none" stroke="#ffffff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" opacity="0.6" />
+</svg>
