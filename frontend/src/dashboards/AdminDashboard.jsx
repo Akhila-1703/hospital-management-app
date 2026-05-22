@@ -34,7 +34,7 @@ import {
   adminGreenBtn,
   metricCard,
   metricCardPending
-} from "../styles/common.js";
+} from "../styles/Common.js";
 
 function AdminDashboard() {
   const { user, logout } = useAuth();

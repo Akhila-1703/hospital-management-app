@@ -25,7 +25,7 @@ import {
   labelClass,
   inputClass,
   submitBtn
-} from "../styles/common";
+} from "../styles/Common.js";
 
 function AddDoctor() {
   const navigate = useNavigate();

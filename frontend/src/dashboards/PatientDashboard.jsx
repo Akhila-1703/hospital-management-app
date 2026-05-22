@@ -11,7 +11,7 @@ import {
   pageBackground,
   pageWrapper,
   headingClass,
-} from "../styles/common";
+} from "../styles/Common.js";
 
 function PatientDashboard() {
   const [appointments, setAppointments] = useState([]);

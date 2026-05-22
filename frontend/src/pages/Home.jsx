@@ -30,7 +30,7 @@ import {
   headingClass,
   subHeadingClass,
   bodyText,
-} from "../styles/common";
+} from "../styles/Common.js";
 
 import {
   cardiology,

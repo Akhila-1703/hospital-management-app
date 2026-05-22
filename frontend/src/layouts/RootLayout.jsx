@@ -1,7 +1,7 @@
 import Header from "../components/Header"
 import Footer from "../components/Footer"
 import { Outlet } from "react-router"
-import { bodyFont } from "../styles/common.js"
+import { bodyFont } from "../styles/Common.js"
 
 function RootLayout() {
   return (

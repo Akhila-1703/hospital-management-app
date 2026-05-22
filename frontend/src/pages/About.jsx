@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { pageBackground } from '../styles/common';
+import { pageBackground } from '../styles/Common.js';
 import { Award, ShieldAlert, Heart, Activity } from 'lucide-react';
 
 const About = () => {
