@@ -38,6 +38,7 @@ const allowedOrigins = envOrigins.length
       "http://localhost:5174",
       "https://hospital-management-gyg8sxoz7-akhilas-projects-29fa9b92.vercel.app",
       "https://hospital-management-f7nxsynzb-akhilas-projects-29fa9b92.vercel.app",
+       "https://hospital-management-app-xi.vercel.app/",
     ];
 
 const corsOptions = {
