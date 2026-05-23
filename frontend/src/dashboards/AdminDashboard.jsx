@@ -1035,14 +1035,27 @@ function AdminDashboard() {
                 <div className="grid sm:grid-cols-2 gap-4">
                   <div>
                     <label className="block text-xs font-bold text-gray-700 mb-1">Specialization</label>
-                    <input
-                      type="text"
+                    <select
                       required
-                      placeholder="e.g. Cardiologist, Pediatrician"
                       value={newDoctor.specialization}
                       onChange={(e) => setNewDoctor(prev => ({ ...prev, specialization: e.target.value }))}
-                      className="w-full border border-gray-200 bg-gray-50 rounded-xl px-4 py-2.5 text-[13px] outline-none focus:bg-white focus:ring-2 focus:ring-[#0071e3] transition"
-                    />
+                      className="w-full border border-gray-200 bg-gray-50 rounded-xl px-4 py-2.5 text-[13px] outline-none focus:bg-white focus:ring-2 focus:ring-[#0071e3] transition text-gray-700 font-medium"
+                    >
+                      <option value="" disabled>Select Specialization</option>
+                      <option value="General Physician">General Physician</option>
+                      <option value="Cardiology">Cardiology</option>
+                      <option value="Orthopedics">Orthopedics</option>
+                      <option value="Neurology">Neurology</option>
+                      <option value="Pediatrics">Pediatrics</option>
+                      <option value="Gynecology & Obstetrics">Gynecology & Obstetrics</option>
+                      <option value="Ophthalmology">Ophthalmology</option>
+                      <option value="Dentistry">Dentistry</option>
+                      <option value="Pulmonology">Pulmonology</option>
+                      <option value="Dermatology">Dermatology</option>
+                      <option value="ENT">ENT</option>
+                      <option value="Oncology">Oncology</option>
+                      <option value="Physiotherapy">Physiotherapy</option>
+                    </select>
                   </div>
 
                   <div>

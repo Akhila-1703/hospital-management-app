@@ -437,7 +437,28 @@ function AddDoctor() {
                 {/* Specialization */}
                 <div className={formGroup}>
                   <label className={labelClass}>Specialization</label>
-                  <input type="text" name="specialization" value={formData.specialization} onChange={handleChange} className={inputClass} required placeholder="e.g. Cardiologist, Dermatologist" />
+                  <select
+                    name="specialization"
+                    value={formData.specialization}
+                    onChange={handleChange}
+                    className={inputClass}
+                    required
+                  >
+                    <option value="" disabled>Select Specialization</option>
+                    <option value="General Physician">General Physician</option>
+                    <option value="Cardiology">Cardiology</option>
+                    <option value="Orthopedics">Orthopedics</option>
+                    <option value="Neurology">Neurology</option>
+                    <option value="Pediatrics">Pediatrics</option>
+                    <option value="Gynecology & Obstetrics">Gynecology & Obstetrics</option>
+                    <option value="Ophthalmology">Ophthalmology</option>
+                    <option value="Dentistry">Dentistry</option>
+                    <option value="Pulmonology">Pulmonology</option>
+                    <option value="Dermatology">Dermatology</option>
+                    <option value="ENT">ENT</option>
+                    <option value="Oncology">Oncology</option>
+                    <option value="Physiotherapy">Physiotherapy</option>
+                  </select>
                 </div>
               </div>
 
