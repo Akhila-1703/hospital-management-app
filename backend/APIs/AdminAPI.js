@@ -263,11 +263,13 @@ adminRoute.post("/create-doctor", async (req, res, next) => {
         });
         await doctorDoc.save();
 
-        // Send credentials email (SMTP or development console log)
-        await sendDoctorCredentials({
+        // Send credentials email in background (SMTP or development console log)
+        sendDoctorCredentials({
             email,
             name,
             password
+        }).catch(err => {
+            console.error("[EmailService] Failed to send credentials email in background:", err);
         });
 
         res.status(201).json({

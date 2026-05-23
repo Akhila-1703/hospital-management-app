@@ -149,7 +149,7 @@ const __dirname = path.resolve();
 app.use(exp.static(path.join(__dirname, "../frontend/dist")));
 
 // SPA FALLBACK ROUTE - Serve index.html for all unmatched routes
-app.get("*", (req, res) => {
+app.get("*any", (req, res) => {
   res.sendFile(path.join(__dirname, "../frontend/dist/index.html"));
 });
 
