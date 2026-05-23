@@ -4,7 +4,7 @@
 
 ### Full-Stack Hospital Management Platform (MERN)
 
-A modern hospital management platform designed to streamline healthcare operations through secure authentication, appointment coordination, and centralized user experiences.
+A modern hospital management platform built to simplify healthcare operations through secure authentication, centralized medical workflows, appointment coordination, and role-based experiences.
 
 </div>
 
@@ -12,9 +12,9 @@ A modern hospital management platform designed to streamline healthcare operatio
 
 ## 🌟 Project Overview
 
-Peoplecare International Hospital is a centralized healthcare platform created to improve the interaction between patients, doctors, and administrators.
+Peoplecare International Hospital is a centralized healthcare platform developed to improve collaboration between patients, doctors, and administrators.
 
-The application provides structured workflows, secure access control, and a modern user experience while maintaining deployment-ready architecture.
+The system combines appointment scheduling, medical record management, prescription workflows, notifications, and secure access control into a unified digital healthcare experience.
 
 ---
 
@@ -25,49 +25,88 @@ The application provides structured workflows, secure access control, and a mode
 - Secure Registration & Login
 - JWT Authentication
 - Protected Routes
-- Role-Based Access Control
-- Persistent Session Experience
+- Role-Based Access Control (RBAC)
+- Persistent Sessions
+- Secure Environment Configuration
 
 ---
 
-### 👤 Patient Experience
+### 👤 Patient Management
 
-- Create and manage account
-- Book appointments
-- Track appointment activity
-- Access personalized dashboard
-
----
-
-### 🩺 Doctor Experience
-
-- Access secure dashboard
-- Manage appointment workflows
-- View patient-related interactions
+- Patient Registration & Profile Management
+- Patient Record Management (CRUD)
+- Medical History Tracking
+- Prescription Access
+- Medical Report Management
+- Personalized Dashboard
 
 ---
 
-### 🏥 Administration
+### 🩺 Doctor Management
 
-- Manage system users
-- Monitor platform activity
-- Access centralized administration tools
-
----
-
-### 📅 Scheduling
-
-- Interactive calendar experience
-- Appointment scheduling
-- Schedule visibility
+- Doctor Profile Management
+- Doctor Specialization Support
+- Appointment Workflow Management
+- Patient Interaction Management
+- Prescription Creation & Updates
 
 ---
 
-### 📍 User Experience
+### 📅 Appointment & Scheduling
 
-- Responsive interface
-- Location visualization
-- Cross-device compatibility
+- Appointment Booking
+- Appointment Scheduling
+- Interactive Calendar View
+- Appointment Status Tracking
+- Availability Management
+
+---
+
+### 🏥 Hospital Administration
+
+- User Management
+- Doctor Management
+- Patient Monitoring
+- Appointment Monitoring
+- Administrative Dashboard
+- Role-Based System Control
+
+---
+
+### 🔎 Search & Productivity
+
+- Search Patients
+- Search Doctors
+- Search Appointments
+- Filtering & Data Visibility
+
+---
+
+### 📂 Medical Records & Documents
+
+- Electronic Medical Records
+- Medical History Logs
+- Prescription Tracking
+- Medical Report Uploads
+- Cloud-Based File Storage
+
+---
+
+### 🔔 Notification System
+
+- Appointment Confirmation Notifications
+- Appointment Reminder Emails
+- Appointment Cancellation Notifications
+- Prescription Notifications
+
+---
+
+### 📍 Platform Experience
+
+- Responsive Interface
+- Calendar Integration
+- Cross-Device Compatibility
+- Cloud Deployment Support
 
 ---
 
@@ -75,9 +114,9 @@ The application provides structured workflows, secure access control, and a mode
 
 | User Type | Primary Capability |
 |----------|-------------------|
-| Patient | Appointment and profile management |
-| Doctor | Workflow and appointment management |
-| Admin | System administration and platform control |
+| **Patient** | Register, manage profile, book appointments, access prescriptions and records |
+| **Doctor** | Manage appointments, prescriptions, and patient interactions |
+| **Admin** | Manage users, hospital workflows, and platform operations |
 
 ---
 
@@ -101,7 +140,7 @@ https://hospital-management-app-g81n.onrender.com
 
 ## ⚙️ Quick Start
 
-Clone the repository:
+Clone repository:
 
 ```bash
 git clone <repository-url>
@@ -126,19 +165,19 @@ npm run dev
 
 ---
 
-## 📚 Project Documentation
+## 📚 Documentation
 
 Detailed technical documentation is maintained separately.
 
 | Documentation | Description |
 |--------------|-------------|
-| `backend/README.md` | Backend architecture, APIs, schemas, packages, deployment |
-| `frontend/README.md` | Frontend architecture, components, packages, UI flows |
+| `backend/README.md` | APIs, schemas, deployment, architecture |
+| `frontend/README.md` | UI architecture, packages, routing, components |
 
 ---
 
 <div align="center">
 
-Built to support modern healthcare workflows with scalability, maintainability, and production deployment practices.
+Built to support scalable healthcare workflows with modern engineering and production deployment practices.
 
 </div>
