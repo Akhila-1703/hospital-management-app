@@ -90,27 +90,7 @@ function AdminDashboard() {
     }
     try {
       setLoading(true);
-      const token = localStorage.getItem("token");
-      
-      console.log("🔍 Creating doctor with data:", newDoctor);
-      console.log("🔐 Token exists:", !!token);
-      
-      const res = await axios.post(
-        "/admin-api/create-doctor", 
-        newDoctor,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
-        }
-      );
-      
-      console.log("✅ Doctor created successfully:", res.data);
-      
-      if (!res.data.success) {
-        throw new Error(res.data.message || "Creation failed");
-      }
-      
+      const res = await axios.post("/admin-api/create-doctor", newDoctor);
       toast.success(res.data.message);
       
       setShowAddModal(false);
@@ -127,25 +107,14 @@ function AdminDashboard() {
         availableTime: ""
       });
       
-      // Refresh lists and wait for all to complete
-      console.log("🔄 Refreshing doctor lists...");
-      const [doctorsData, statsData, recentData] = await Promise.all([
-        getDoctors(), 
-        getStats(), 
-        getRecentUsers()
-      ]);
-      
-      console.log("✅ Lists refreshed - Doctors:", doctorsData?.length, "Stats:", statsData);
-      
-      if (!doctorsData || doctorsData.length === 0) {
-        console.warn("⚠️ Warning: No doctors returned from getDoctors()");
-      }
-      
+      // Refresh lists
+      getDoctors();
+      getStats();
+      getRecentUsers();
       setLoading(false);
     } catch (err) {
-      console.error("❌ Error creating doctor:", err);
-      console.error("Response data:", err.response?.data);
-      toast.error(err.response?.data?.message || err.message || "Failed to create doctor profile.");
+      console.log(err);
+      toast.error(err.response?.data?.message || "Failed to create doctor profile.");
       setLoading(false);
     }
   };
@@ -153,16 +122,10 @@ function AdminDashboard() {
   // FETCH STATS
   const getStats = useCallback(async () => {
     try {
-      const token = localStorage.getItem("token");
-      const res = await axios.get("/admin-api/stats", {
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
-      });
+      const res = await axios.get("/admin-api/stats");
       setStats(res.data.payload);
-      return res.data.payload;
     } catch (err) {
-      console.error("Error fetching stats:", err);
+      console.log(err);
       toast.error("Failed to fetch stats");
     }
   }, []);
@@ -170,19 +133,12 @@ function AdminDashboard() {
   // FETCH RECENT USERS
   const getRecentUsers = useCallback(async () => {
     try {
-      const token = localStorage.getItem("token");
       const res = await axios.get(
-        "/admin-api/recent-users",
-        {
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
-        }
+        "/admin-api/recent-users"
       );
       setRecentUsers(res.data.payload);
-      return res.data.payload;
     } catch (err) {
-      console.error("Error fetching recent users:", err);
+      console.log(err);
       toast.error("Failed to fetch recent users");
     }
   }, []);
@@ -190,19 +146,12 @@ function AdminDashboard() {
   // FETCH ALL DOCTORS
   const getDoctors = useCallback(async () => {
     try {
-      const token = localStorage.getItem("token");
       const res = await axios.get(
-        "/admin-api/doctors",
-        {
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
-        }
+        "/admin-api/doctors"
       );
       setDoctors(res.data.payload);
-      return res.data.payload;
     } catch (err) {
-      console.error("Error fetching doctors:", err);
+      console.log(err);
       toast.error("Failed to fetch doctors");
     }
   }, []);
@@ -210,19 +159,12 @@ function AdminDashboard() {
   // FETCH ALL PATIENTS
   const getPatients = useCallback(async () => {
     try {
-      const token = localStorage.getItem("token");
       const res = await axios.get(
-        "/admin-api/patients",
-        {
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
-        }
+        "/admin-api/patients"
       );
       setPatients(res.data.payload);
-      return res.data.payload;
     } catch (err) {
-      console.error("Error fetching patients:", err);
+      console.log(err);
       toast.error("Failed to fetch patients");
     }
   }, []);
@@ -230,19 +172,12 @@ function AdminDashboard() {
   // FETCH ALL APPOINTMENTS
   const getAppointments = useCallback(async () => {
     try {
-      const token = localStorage.getItem("token");
       const res = await axios.get(
-        "/admin-api/all-appointments",
-        {
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
-        }
+        "/admin-api/all-appointments"
       );
       setAppointments(res.data.payload);
-      return res.data.payload;
     } catch (err) {
-      console.error("Error fetching appointments:", err);
+      console.log(err);
       toast.error("Failed to fetch appointments");
     }
   }, []);
@@ -250,19 +185,12 @@ function AdminDashboard() {
   // FETCH ALL PRESCRIPTIONS
   const getPrescriptions = useCallback(async () => {
     try {
-      const token = localStorage.getItem("token");
       const res = await axios.get(
-        "/admin-api/all-prescriptions",
-        {
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
-        }
+        "/admin-api/all-prescriptions"
       );
       setPrescriptions(res.data.payload);
-      return res.data.payload;
     } catch (err) {
-      console.error("Error fetching prescriptions:", err);
+      console.log(err);
       toast.error("Failed to fetch prescriptions");
     }
   }, []);
@@ -271,27 +199,20 @@ function AdminDashboard() {
   const toggleUserStatus = async (id, role) => {
     try {
       setLoading(true);
-      const token = localStorage.getItem("token");
       const endpoint = role === "DOCTOR" ? `/admin-api/doctor/${id}` : `/admin-api/patient/${id}`;
       
-      const res = await axios.put(
-        `${endpoint}`,
-        {},
-        {
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
-        }
-      );
+      const res = await axios.put(`${endpoint}`);
       
       toast.success(res.data.message);
       
-      // Refresh all data and wait for completion
-      await Promise.all([getRecentUsers(), getDoctors(), getPatients(), getStats()]);
+      getRecentUsers();
+      getDoctors();
+      getPatients();
+      getStats(); // Refresh stats after status update
       
       setLoading(false);
     } catch (err) {
-      console.error("Error toggling user status:", err);
+      console.log(err);
       toast.error("Failed to update user status");
       setLoading(false);
     }
