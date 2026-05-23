@@ -23,6 +23,12 @@ import {
 } from "lucide-react";
 import { toast } from "react-hot-toast";
 import { useAuth } from "../store/authStore";
+import AdminOverview from "./admin/AdminOverview";
+import AdminDoctorsList from "./admin/AdminDoctorsList";
+import AdminPatientsList from "./admin/AdminPatientsList";
+import AdminAppointmentsList from "./admin/AdminAppointmentsList";
+import AdminPrescriptionsList from "./admin/AdminPrescriptionsList";
+import AdminAddDoctorModal from "./admin/AdminAddDoctorModal";
 import {
   bodyFont,
   headingFont,
@@ -73,7 +79,6 @@ function AdminDashboard() {
     availableTime: ""
   });
 
-  const daysList = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 
   const generateRandomPassword = () => {
     const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$*";
@@ -285,475 +290,16 @@ function AdminDashboard() {
 
   // VIEW RENDERERS
   const renderDashboard = () => (
-    <>
-      <h2 className={`text-[24px] font-bold tracking-tight mb-6 ${headingFont}`}>Dashboard Summary</h2>
-      
-      {/* STATS */}
-      <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mb-8">
-        
-        {/* TOTAL PATIENTS */}
-        <div 
-          className={`${metricCard} cursor-pointer hover:shadow-md transition-shadow`}
-          onClick={() => setActiveTab("patients")}
-        >
-          <div className="flex justify-between items-start mb-4">
-            <p className="text-[11px] font-bold tracking-wider text-gray-400 uppercase">
-              Total Patients
-            </p>
-            <div className="bg-[#fafafa] p-1.5 rounded-lg border border-[#e8e8ed]">
-              <Users className="text-[#0071e3]" size={14} />
-            </div>
-          </div>
-          <h2 className={`text-[26px] font-bold leading-none ${headingFont}`}>
-            {stats.totalPatients}
-          </h2>
-        </div>
-
-        {/* TOTAL DOCTORS */}
-        <div 
-          className={`${metricCard} cursor-pointer hover:shadow-md transition-shadow`}
-          onClick={() => setActiveTab("doctors")}
-        >
-          <div className="flex justify-between items-start mb-4">
-            <p className="text-[11px] font-bold tracking-wider text-gray-400 uppercase">
-              Total Doctors
-            </p>
-            <div className="bg-[#fafafa] p-1.5 rounded-lg border border-[#e8e8ed]">
-              <Stethoscope className="text-[#0071e3]" size={14} />
-            </div>
-          </div>
-          <h2 className={`text-[26px] font-bold leading-none ${headingFont}`}>
-            {stats.totalDoctors}
-          </h2>
-        </div>
-
-        {/* PENDING VERIFICATIONS */}
-        <div className={metricCardPending}>
-          <div className="flex justify-between items-start mb-4">
-            <p className="text-[11px] font-bold tracking-wider text-gray-400 uppercase">
-              Pending Verifications
-            </p>
-            <div className="bg-[#fff9f0] p-1.5 rounded-lg border border-[#ff9500]/10">
-              <ShieldCheck className="text-[#ff9500]" size={14} />
-            </div>
-          </div>
-          <h2 className={`text-[26px] font-bold leading-none ${headingFont}`}>
-            {stats.pendingVerifications}
-          </h2>
-        </div>
-
-        {/* APPOINTMENTS */}
-        <div 
-          className={`${metricCard} cursor-pointer hover:shadow-md transition-shadow`}
-          onClick={() => setActiveTab("appointments")}
-        >
-          <div className="flex justify-between items-start mb-4">
-            <p className="text-[11px] font-bold tracking-wider text-gray-400 uppercase">
-              Appointments
-            </p>
-            <div className="bg-[#fafafa] p-1.5 rounded-lg border border-[#e8e8ed]">
-              <Calendar className="text-[#0071e3]" size={14} />
-            </div>
-          </div>
-          <h2 className={`text-[26px] font-bold leading-none ${headingFont}`}>
-            {stats.totalAppointments}
-          </h2>
-        </div>
-
-        {/* PRESCRIPTIONS */}
-        <div 
-          className={`${metricCard} cursor-pointer hover:shadow-md transition-shadow`}
-          onClick={() => setActiveTab("prescriptions")}
-        >
-          <div className="flex justify-between items-start mb-4">
-            <p className="text-[11px] font-bold tracking-wider text-gray-400 uppercase">
-              Prescriptions
-            </p>
-            <div className="bg-[#fafafa] p-1.5 rounded-lg border border-[#e8e8ed]">
-              <ClipboardList className="text-[#0071e3]" size={14} />
-            </div>
-          </div>
-          <h2 className={`text-[26px] font-bold leading-none ${headingFont}`}>
-            {stats.totalPrescriptions}
-          </h2>
-        </div>
-      </div>
-
-      {/* RECENTLY JOINED USERS */}
-      <div className="bg-white rounded-2xl shadow-sm border border-[#e8e8ed] overflow-hidden">
-        <div className="px-6 py-4 border-b border-[#e8e8ed]">
-          <h3 className={`text-[16px] font-bold ${headingFont}`}>
-            Recently Joined Users
-          </h3>
-        </div>
-
-        <div className="overflow-x-auto">
-          <table className="w-full text-left">
-            <thead className="bg-[#fafafa] border-b border-[#e8e8ed]">
-              <tr>
-                <th className="px-6 py-3.5 text-[11px] font-semibold text-gray-400 uppercase tracking-wider">User</th>
-                <th className="px-6 py-3.5 text-[11px] font-semibold text-gray-400 uppercase tracking-wider">Role</th>
-                <th className="px-6 py-3.5 text-[11px] font-semibold text-gray-400 uppercase tracking-wider">Status</th>
-                <th className="px-6 py-3.5 text-[11px] font-semibold text-gray-400 uppercase tracking-wider text-center">Action</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-[#e8e8ed]">
-              {recentUsers.map((u) => (
-                <tr key={u._id} className="hover:bg-[#fafafa]/60 transition">
-                  <td className="px-6 py-3.5">
-                    <div className="flex items-center gap-3">
-                      <div className="w-8 h-8 rounded-full bg-gray-100 text-[#1d1d1f] flex items-center justify-center font-bold text-[12px] uppercase">
-                        {u.name?.charAt(0)}
-                      </div>
-                      <div>
-                        <div className="font-semibold text-[#1d1d1f] text-[13px]">{u.name}</div>
-                        <div className="text-[11px] text-[#86868b] font-normal">{u.email}</div>
-                      </div>
-                    </div>
-                  </td>
-                  <td className="px-6 py-3.5">
-                    <span className={`px-2.5 py-0.5 rounded-full text-[10px] font-semibold ${
-                      u.role === 'DOCTOR' ? 'bg-blue-50 text-blue-600 border border-blue-100' : 'bg-green-50 text-green-600 border border-green-100'
-                    }`}>
-                      {u.role}
-                    </span>
-                  </td>
-                  <td className="px-6 py-3.5">
-                    <span className={`px-2.5 py-0.5 rounded-full text-[10px] font-semibold ${
-                      u.isActive ? 'bg-green-50 text-green-700 border border-green-100' : 'bg-red-50 text-red-700 border border-red-100'
-                    }`}>
-                      {u.isActive ? 'Active' : 'Inactive'}
-                    </span>
-                  </td>
-                  <td className="px-6 py-3.5 text-center">
-                    <button
-                      disabled={loading}
-                      onClick={() => toggleUserStatus(u._id, u.role)}
-                      className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg transition text-[12px] font-semibold ${
-                        u.isActive 
-                          ? adminRedBtn
-                          : adminGreenBtn
-                      }`}
-                    >
-                      {u.isActive ? <Ban size={13} /> : <Check size={13} />}
-                      {u.isActive ? 'Set Inactive' : 'Set Active'}
-                    </button>
-                  </td>
-                </tr>
-              ))}
-              {recentUsers.length === 0 && (
-                <tr>
-                  <td colSpan="4" className="px-6 py-8 text-center text-gray-400">
-                    No recent users found.
-                  </td>
-                </tr>
-              )}
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </>
+    <AdminOverview
+      stats={stats}
+      recentUsers={recentUsers}
+      setActiveTab={setActiveTab}
+      toggleUserStatus={toggleUserStatus}
+      loading={loading}
+    />
   );
 
-  const renderDoctors = () => {
-    const filteredDoctors = doctors.filter(d => 
-      d.name?.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      d.email?.toLowerCase().includes(searchQuery.toLowerCase())
-    );
 
-    return (
-      <div className="bg-white rounded-2xl shadow-sm border border-[#e8e8ed] overflow-hidden">
-        <div className="px-6 py-5 border-b border-[#e8e8ed] flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <h2 className={`text-[18px] font-bold ${headingFont}`}>Manage Doctors</h2>
-            <span className="bg-[#fafafa] border border-[#e8e8ed] text-[#86868b] px-3 py-1 rounded-full text-[11px] font-bold">
-              {doctors.length} Total
-            </span>
-          </div>
-          <button
-            onClick={() => setShowAddModal(true)}
-            className="flex items-center gap-1.5 bg-[#0071e3] hover:bg-[#0077ed] text-white px-4 py-2 rounded-xl text-[12px] font-semibold transition shadow-sm hover:shadow"
-          >
-            <Plus size={14} />
-            Add Doctor
-          </button>
-        </div>
-        <div className="p-6 pb-0">
-          {renderSearchBar("Search doctors...")}
-        </div>
-        <div className="overflow-x-auto">
-          <table className="w-full text-left">
-            <thead className="bg-[#fafafa] border-b border-[#e8e8ed]">
-              <tr>
-                <th className="px-6 py-3.5 text-[11px] font-semibold text-gray-400 uppercase tracking-wider">Doctor</th>
-                <th className="px-6 py-3.5 text-[11px] font-semibold text-gray-400 uppercase tracking-wider">Specialization</th>
-                <th className="px-6 py-3.5 text-[11px] font-semibold text-gray-400 uppercase tracking-wider">Status</th>
-                <th className="px-6 py-3.5 text-[11px] font-semibold text-gray-400 uppercase tracking-wider text-center">Action</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-[#e8e8ed]">
-              {filteredDoctors.map((d) => (
-                <tr key={d._id} className="hover:bg-[#fafafa]/60 transition">
-                  <td className="px-6 py-3.5">
-                    <div className="flex items-center gap-3">
-                      <div className="w-8 h-8 rounded-full bg-gray-100 text-[#1d1d1f] flex items-center justify-center font-bold text-[12px] uppercase">
-                        {d.name?.charAt(0)}
-                      </div>
-                      <div>
-                        <div className="font-semibold text-[#1d1d1f] text-[13px]">{d.name}</div>
-                        <div className="text-[11px] text-[#86868b] font-normal">{d.email}</div>
-                      </div>
-                    </div>
-                  </td>
-                  <td className="px-6 py-3.5 text-gray-650 text-[13px] font-medium">
-                    {d.specialization || "General Physician"}
-                  </td>
-                  <td className="px-6 py-3.5">
-                    <div className="flex flex-col gap-1.5">
-                      <span className={`inline-flex items-center w-fit px-2.5 py-0.5 rounded-full text-[10px] font-semibold border ${
-                        d.isActive ? 'bg-green-50 text-green-700 border-green-100' : 'bg-red-50 text-red-700 border-red-100'
-                      }`}>
-                        {d.isActive ? 'Active' : 'Suspended'}
-                      </span>
-                      <span className={`inline-flex items-center w-fit px-2 py-0.5 rounded-full text-[9px] font-bold border ${
-                        d.isVerified ? 'bg-blue-50 text-blue-700 border-blue-100' : 'bg-yellow-50 text-yellow-750 border-yellow-100'
-                      }`}>
-                        {d.isVerified ? 'Verified' : 'Unverified'}
-                      </span>
-                    </div>
-                  </td>
-                  <td className="px-6 py-3.5 text-center">
-                    <button
-                      disabled={loading}
-                      onClick={() => toggleUserStatus(d._id, 'DOCTOR')}
-                      className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg transition text-[12px] font-semibold ${
-                        d.isActive 
-                          ? adminRedBtn
-                          : adminGreenBtn
-                      }`}
-                    >
-                      {d.isActive ? <Ban size={13} /> : <Check size={13} />}
-                      {d.isActive ? 'Suspend Doctor' : 'Activate Doctor'}
-                    </button>
-                  </td>
-                </tr>
-              ))}
-              {filteredDoctors.length === 0 && (
-                <tr>
-                  <td colSpan="4" className="px-6 py-8 text-center text-gray-400">No doctors found matching query.</td>
-                </tr>
-              )}
-            </tbody>
-          </table>
-        </div>
-      </div>
-    );
-  };
-
-  const renderPatients = () => {
-    const filteredPatients = patients.filter(p => 
-      p.name?.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      p.email?.toLowerCase().includes(searchQuery.toLowerCase())
-    );
-
-    return (
-      <div className="bg-white rounded-2xl shadow-sm border border-[#e8e8ed] overflow-hidden">
-        <div className="px-6 py-5 border-b border-[#e8e8ed] flex items-center justify-between">
-          <h2 className={`text-[18px] font-bold ${headingFont}`}>Manage patients</h2>
-          <span className="bg-[#fafafa] border border-[#e8e8ed] text-gray-600 px-3 py-1 rounded-full text-[11px] font-bold">
-            {patients.length} Total
-          </span>
-        </div>
-        <div className="p-6 pb-0">
-          {renderSearchBar("Search patients...")}
-        </div>
-        <div className="overflow-x-auto">
-          <table className="w-full text-left">
-            <thead className="bg-[#fafafa] border-b border-[#e8e8ed]">
-              <tr>
-                <th className="px-6 py-3.5 text-[11px] font-semibold text-gray-400 uppercase tracking-wider">Patient</th>
-                <th className="px-6 py-3.5 text-[11px] font-semibold text-gray-400 uppercase tracking-wider">Status</th>
-                <th className="px-6 py-3.5 text-[11px] font-semibold text-gray-400 uppercase tracking-wider text-center">Action</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-[#e8e8ed]">
-              {filteredPatients.map((p) => (
-                <tr key={p._id} className="hover:bg-[#fafafa]/60 transition">
-                  <td className="px-6 py-3.5">
-                    <div className="flex items-center gap-3">
-                      <div className="w-8 h-8 rounded-full bg-gray-100 text-[#1d1d1f] flex items-center justify-center font-bold text-[12px] uppercase">
-                        {p.name?.charAt(0)}
-                      </div>
-                      <div>
-                        <div className="font-semibold text-[#1d1d1f] text-[13px]">{p.name}</div>
-                        <div className="text-[11px] text-[#86868b] font-normal">{p.email}</div>
-                      </div>
-                    </div>
-                  </td>
-                  <td className="px-6 py-3.5">
-                    <span className={`px-2.5 py-0.5 rounded-full text-[10px] font-semibold ${
-                      p.isActive ? 'bg-green-50 text-green-700 border border-green-100' : 'bg-red-50 text-red-700 border border-red-100'
-                    }`}>
-                      {p.isActive ? 'Active' : 'Blocked'}
-                    </span>
-                  </td>
-                  <td className="px-6 py-3.5 text-center">
-                    <button
-                      disabled={loading}
-                      onClick={() => toggleUserStatus(p._id, 'PATIENT')}
-                      className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg transition text-[12px] font-semibold ${
-                        p.isActive 
-                          ? adminRedBtn
-                          : adminGreenBtn
-                      }`}
-                    >
-                      {p.isActive ? <Ban size={13} /> : <Check size={13} />}
-                      {p.isActive ? 'Suspend Patient' : 'Unsuspend'}
-                    </button>
-                  </td>
-                </tr>
-              ))}
-              {filteredPatients.length === 0 && (
-                <tr>
-                  <td colSpan="3" className="px-6 py-8 text-center text-gray-400">No patients found matching query.</td>
-                </tr>
-              )}
-            </tbody>
-          </table>
-        </div>
-      </div>
-    );
-  };
-
-  const renderAppointments = () => {
-    const filteredAppts = appointments.filter(appt => 
-      appt.patientId?.userId?.name?.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      appt.doctorId?.userId?.name?.toLowerCase().includes(searchQuery.toLowerCase())
-    );
-
-    return (
-      <div className="bg-white rounded-2xl shadow-sm border border-[#e8e8ed] overflow-hidden">
-        <div className="px-6 py-5 border-b border-[#e8e8ed]">
-          <h2 className={`text-[18px] font-bold ${headingFont}`}>All Appointments</h2>
-        </div>
-        <div className="p-6 pb-0">
-          {renderSearchBar("Search doctor or patient...")}
-        </div>
-        <div className="overflow-x-auto">
-          <table className="w-full text-left">
-            <thead className="bg-[#fafafa] border-b border-[#e8e8ed]">
-              <tr>
-                <th className="px-6 py-3.5 text-[11px] font-semibold text-gray-400 uppercase tracking-wider">Date & Time</th>
-                <th className="px-6 py-3.5 text-[11px] font-semibold text-gray-400 uppercase tracking-wider">Patient</th>
-                <th className="px-6 py-3.5 text-[11px] font-semibold text-gray-400 uppercase tracking-wider">Doctor</th>
-                <th className="px-6 py-3.5 text-[11px] font-semibold text-gray-400 uppercase tracking-wider">Status</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-[#e8e8ed]">
-              {filteredAppts.map((appt) => (
-                <tr key={appt._id} className="hover:bg-[#fafafa]/60 transition">
-                  <td className="px-6 py-3.5 text-[13px] text-[#1d1d1f] font-medium">
-                    {new Date(appt.appointmentDate).toLocaleDateString()} <br/>
-                    <span className="text-[11px] text-gray-400 font-normal">{appt.appointmentTime}</span>
-                  </td>
-                  <td className="px-6 py-3.5">
-                    <div className="font-semibold text-[#1d1d1f] text-[13px]">
-                      {appt.patientId?.userId?.name || "Unknown"}
-                    </div>
-                    <div className="text-[11px] text-[#86868b] font-normal">
-                      {appt.patientId?.userId?.email}
-                    </div>
-                  </td>
-                  <td className="px-6 py-3.5 text-gray-800 text-[13px] font-medium">
-                    Dr. {appt.doctorId?.userId?.name || "Unknown"}
-                  </td>
-                  <td className="px-6 py-3.5">
-                    <span className={`px-2.5 py-0.5 rounded-full text-[10px] font-semibold border ${
-                      appt.status === 'COMPLETED' ? 'bg-green-50 text-green-700 border-green-100' :
-                      appt.status === 'CANCELLED' ? 'bg-red-50 text-red-700 border-red-100' :
-                      appt.status === 'CONFIRMED' ? 'bg-blue-50 text-blue-700 border-blue-100' :
-                      'bg-yellow-50 text-yellow-700 border-yellow-100'
-                    }`}>
-                      {appt.status}
-                    </span>
-                  </td>
-                </tr>
-              ))}
-              {filteredAppts.length === 0 && (
-                <tr>
-                  <td colSpan="4" className="px-6 py-8 text-center text-gray-400">No appointments found matching query.</td>
-                </tr>
-              )}
-            </tbody>
-          </table>
-        </div>
-      </div>
-    );
-  };
-
-  const renderPrescriptions = () => {
-    const filteredPresc = prescriptions.filter(presc => 
-      presc.patientId?.userId?.name?.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      presc.doctorId?.userId?.name?.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      presc.diagnosis?.toLowerCase().includes(searchQuery.toLowerCase())
-    );
-
-    return (
-      <div className="bg-white rounded-2xl shadow-sm border border-[#e8e8ed] overflow-hidden">
-        <div className="px-6 py-5 border-b border-[#e8e8ed]">
-          <h2 className={`text-[18px] font-bold ${headingFont}`}>All Prescriptions</h2>
-        </div>
-        <div className="p-6 pb-0">
-          {renderSearchBar("Search doctor, patient or diagnosis...")}
-        </div>
-        <div className="overflow-x-auto">
-          <table className="w-full text-left">
-            <thead className="bg-[#fafafa] border-b border-[#e8e8ed]">
-              <tr>
-                <th className="px-6 py-3.5 text-[11px] font-semibold text-gray-400 uppercase tracking-wider">Date</th>
-                <th className="px-6 py-3.5 text-[11px] font-semibold text-gray-400 uppercase tracking-wider">Patient</th>
-                <th className="px-6 py-3.5 text-[11px] font-semibold text-gray-400 uppercase tracking-wider">Doctor</th>
-                <th className="px-6 py-3.5 text-[11px] font-semibold text-gray-400 uppercase tracking-wider">Diagnosis</th>
-                <th className="px-6 py-3.5 text-[11px] font-semibold text-gray-400 uppercase tracking-wider text-center">Action</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-[#e8e8ed]">
-              {filteredPresc.map((presc) => (
-                <tr key={presc._id} className="hover:bg-[#fafafa]/60 transition">
-                  <td className="px-6 py-3.5 text-[#86868b] text-[13px]">
-                    {new Date(presc.createdAt).toLocaleDateString()}
-                  </td>
-                  <td className="px-6 py-3.5 font-semibold text-[#1d1d1f] text-[13px]">
-                    {presc.patientId?.userId?.name || "Unknown"}
-                  </td>
-                  <td className="px-6 py-3.5 font-semibold text-[#1d1d1f] text-[13px]">
-                    Dr. {presc.doctorId?.userId?.name || "Unknown"}
-                  </td>
-                  <td className="px-6 py-3.5 text-[#86868b] text-[13px]">
-                    {presc.diagnosis}
-                  </td>
-                  <td className="px-6 py-3.5 text-center">
-                    <button
-                      onClick={() => downloadPrescription(presc._id)}
-                      className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg transition text-[12px] font-semibold ${adminPrimaryBtn}`}
-                    >
-                      <Download size={13} />
-                      Download PDF
-                    </button>
-                  </td>
-                </tr>
-              ))}
-              {filteredPresc.length === 0 && (
-                <tr>
-                  <td colSpan="5" className="px-6 py-8 text-center text-gray-400">No prescriptions found matching query.</td>
-                </tr>
-              )}
-            </tbody>
-          </table>
-        </div>
-      </div>
-    );
-  };
 
   const renderProfile = () => (
     <div className="bg-white rounded-2xl shadow-sm border border-[#e8e8ed] p-8 max-w-xl">
@@ -790,10 +336,40 @@ function AdminDashboard() {
   const renderContent = () => {
     switch (activeTab) {
       case "dashboard": return renderDashboard();
-      case "doctors": return renderDoctors();
-      case "patients": return renderPatients();
-      case "appointments": return renderAppointments();
-      case "prescriptions": return renderPrescriptions();
+      case "doctors": return (
+        <AdminDoctorsList
+          doctors={doctors}
+          searchQuery={searchQuery}
+          loading={loading}
+          toggleUserStatus={toggleUserStatus}
+          setShowAddModal={setShowAddModal}
+          searchBarComponent={renderSearchBar("Search doctors...")}
+        />
+      );
+      case "patients": return (
+        <AdminPatientsList
+          patients={patients}
+          searchQuery={searchQuery}
+          loading={loading}
+          toggleUserStatus={toggleUserStatus}
+          searchBarComponent={renderSearchBar("Search patients...")}
+        />
+      );
+      case "appointments": return (
+        <AdminAppointmentsList
+          appointments={appointments}
+          searchQuery={searchQuery}
+          searchBarComponent={renderSearchBar("Search doctor or patient...")}
+        />
+      );
+      case "prescriptions": return (
+        <AdminPrescriptionsList
+          prescriptions={prescriptions}
+          searchQuery={searchQuery}
+          downloadPrescription={downloadPrescription}
+          searchBarComponent={renderSearchBar("Search doctor, patient or diagnosis...")}
+        />
+      );
       case "profile": return renderProfile();
       default: return renderDashboard();
     }
@@ -985,227 +561,15 @@ function AdminDashboard() {
 
       {/* ADD DOCTOR MODAL */}
       {showAddModal && (
-        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 z-50 overflow-y-auto animate-fadeIn">
-          <div className="bg-white rounded-3xl p-6 sm:p-8 max-w-2xl w-full shadow-2xl border border-gray-100 relative my-8">
-            <button
-              onClick={() => setShowAddModal(false)}
-              className="absolute right-5 top-5 p-1 rounded-full hover:bg-gray-100 text-gray-400 hover:text-gray-700 transition"
-            >
-              <X size={20} />
-            </button>
-
-            <h3 className="text-2xl font-extrabold text-gray-900 flex items-center gap-2 mb-2">
-              <Stethoscope className="text-[#0071e3]" size={24} />
-              Register New Doctor
-            </h3>
-            <p className="text-sm text-gray-500 mb-6">
-              Create a fully verified doctor profile. The login credentials will be dispatched immediately to the doctor's email.
-            </p>
-
-            <form onSubmit={handleCreateDoctor} className="space-y-6">
-              {/* SECTION 1: ACCOUNT CREDENTIALS */}
-              <div>
-                <h4 className="text-xs font-bold text-gray-400 uppercase tracking-widest border-b border-gray-100 pb-2 mb-4">
-                  Account Credentials & Settings
-                </h4>
-                <div className="grid sm:grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-xs font-bold text-gray-700 mb-1">Full Name</label>
-                    <input
-                      type="text"
-                      required
-                      placeholder="e.g. Dr. Akhila Priya"
-                      value={newDoctor.name}
-                      onChange={(e) => setNewDoctor(prev => ({ ...prev, name: e.target.value }))}
-                      className="w-full border border-gray-200 bg-gray-50 rounded-xl px-4 py-2.5 text-[13px] outline-none focus:bg-white focus:ring-2 focus:ring-[#0071e3] transition"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-xs font-bold text-gray-700 mb-1">Email Address</label>
-                    <input
-                      type="email"
-                      required
-                      placeholder="doctor@peoplecare.com"
-                      value={newDoctor.email}
-                      onChange={(e) => setNewDoctor(prev => ({ ...prev, email: e.target.value }))}
-                      className="w-full border border-gray-200 bg-gray-50 rounded-xl px-4 py-2.5 text-[13px] outline-none focus:bg-white focus:ring-2 focus:ring-[#0071e3] transition"
-                    />
-                  </div>
-                </div>
-
-                <div className="grid sm:grid-cols-2 gap-4 mt-4">
-                  <div>
-                    <label className="block text-xs font-bold text-gray-700 mb-1">Password</label>
-                    <div className="relative">
-                      <input
-                        type="text"
-                        required
-                        placeholder="Choose or generate a password"
-                        value={newDoctor.password}
-                        onChange={(e) => setNewDoctor(prev => ({ ...prev, password: e.target.value }))}
-                        className="w-full border border-gray-200 bg-gray-50 rounded-xl pl-4 pr-24 py-2.5 text-[13px] font-mono outline-none focus:bg-white focus:ring-2 focus:ring-[#0071e3] transition"
-                      />
-                      <button
-                        type="button"
-                        onClick={generateRandomPassword}
-                        className="absolute right-2 top-1.5 bg-gray-200 hover:bg-gray-300 text-gray-700 px-2.5 py-1 rounded-lg text-[10px] font-bold transition flex items-center gap-1"
-                      >
-                        <Key size={10} />
-                        Auto-Gen
-                      </button>
-                    </div>
-                  </div>
-
-                  <div>
-                    <label className="block text-xs font-bold text-gray-700 mb-1">Phone Number</label>
-                    <input
-                      type="tel"
-                      required
-                      placeholder="e.g. +91 9876543210"
-                      value={newDoctor.phoneNumber}
-                      onChange={(e) => setNewDoctor(prev => ({ ...prev, phoneNumber: e.target.value }))}
-                      className="w-full border border-gray-200 bg-gray-50 rounded-xl px-4 py-2.5 text-[13px] outline-none focus:bg-white focus:ring-2 focus:ring-[#0071e3] transition"
-                    />
-                  </div>
-                </div>
-              </div>
-
-              {/* SECTION 2: PROFESSIONAL INFORMATION */}
-              <div>
-                <h4 className="text-xs font-bold text-gray-400 uppercase tracking-widest border-b border-gray-100 pb-2 mb-4">
-                  Professional Information
-                </h4>
-                <div className="grid sm:grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-xs font-bold text-gray-700 mb-1">Specialization</label>
-                    <select
-                      required
-                      value={newDoctor.specialization}
-                      onChange={(e) => setNewDoctor(prev => ({ ...prev, specialization: e.target.value }))}
-                      className="w-full border border-gray-200 bg-gray-50 rounded-xl px-4 py-2.5 text-[13px] outline-none focus:bg-white focus:ring-2 focus:ring-[#0071e3] transition text-gray-700 font-medium"
-                    >
-                      <option value="" disabled>Select Specialization</option>
-                      <option value="Cardiology">Cardiology</option>
-                      <option value="Orthopedics">Orthopedics</option>
-                      <option value="Neurology">Neurology</option>
-                      <option value="Pediatrics">Pediatrics</option>
-                      <option value="Gynecology & Obstetrics">Gynecology & Obstetrics</option>
-                      <option value="Ophthalmology">Ophthalmology</option>
-                      <option value="Dentistry">Dentistry</option>
-                      <option value="Pulmonology">Pulmonology</option>
-                    </select>
-                  </div>
-
-                  <div>
-                    <label className="block text-xs font-bold text-gray-700 mb-1">Qualification</label>
-                    <input
-                      type="text"
-                      required
-                      placeholder="e.g. MBBS, MD (Cardiology)"
-                      value={newDoctor.qualification}
-                      onChange={(e) => setNewDoctor(prev => ({ ...prev, qualification: e.target.value }))}
-                      className="w-full border border-gray-200 bg-gray-50 rounded-xl px-4 py-2.5 text-[13px] outline-none focus:bg-white focus:ring-2 focus:ring-[#0071e3] transition"
-                    />
-                  </div>
-                </div>
-
-                <div className="grid sm:grid-cols-2 gap-4 mt-4">
-                  <div>
-                    <label className="block text-xs font-bold text-gray-700 mb-1">Experience (Years)</label>
-                    <input
-                      type="number"
-                      required
-                      min="0"
-                      placeholder="e.g. 8"
-                      value={newDoctor.experience}
-                      onChange={(e) => setNewDoctor(prev => ({ ...prev, experience: e.target.value }))}
-                      className="w-full border border-gray-200 bg-gray-50 rounded-xl px-4 py-2.5 text-[13px] outline-none focus:bg-white focus:ring-2 focus:ring-[#0071e3] transition"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-xs font-bold text-gray-700 mb-1">Date of Birth</label>
-                    <input
-                      type="date"
-                      required
-                      value={newDoctor.dob}
-                      onChange={(e) => setNewDoctor(prev => ({ ...prev, dob: e.target.value }))}
-                      className="w-full border border-gray-200 bg-gray-50 rounded-xl px-4 py-2.5 text-[13px] outline-none focus:bg-white focus:ring-2 focus:ring-[#0071e3] transition"
-                    />
-                  </div>
-                </div>
-              </div>
-
-              {/* SECTION 3: CONSULTATION AVAILABILITY */}
-              <div>
-                <h4 className="text-xs font-bold text-gray-400 uppercase tracking-widest border-b border-gray-100 pb-2 mb-4">
-                  Consultation Schedule
-                </h4>
-                <div className="space-y-3">
-                  <div>
-                    <label className="block text-xs font-bold text-gray-700 mb-1">Available Days</label>
-                    <div className="flex flex-wrap gap-3 mt-1.5 p-3.5 bg-gray-50 rounded-2xl border border-gray-200">
-                      {daysList.map((day) => (
-                        <label key={day} className="flex items-center gap-1.5 text-xs font-semibold text-gray-700 cursor-pointer">
-                          <input
-                            type="checkbox"
-                            checked={newDoctor.availableDays.includes(day)}
-                            onChange={() => {
-                              setNewDoctor(prev => ({
-                                ...prev,
-                                availableDays: prev.availableDays.includes(day)
-                                  ? prev.availableDays.filter(d => d !== day)
-                                  : [...prev.availableDays, day]
-                              }));
-                            }}
-                            className="rounded text-[#0071e3] focus:ring-[#0071e3] h-4 w-4"
-                          />
-                          {day}
-                        </label>
-                      ))}
-                    </div>
-                  </div>
-
-                  <div className="pt-2">
-                    <label className="block text-xs font-bold text-gray-700 mb-1">Consultation Hours</label>
-                    <input
-                      type="text"
-                      required
-                      placeholder="e.g. 09:00 AM - 05:00 PM"
-                      value={newDoctor.availableTime}
-                      onChange={(e) => setNewDoctor(prev => ({ ...prev, availableTime: e.target.value }))}
-                      className="w-full border border-gray-200 bg-gray-50 rounded-xl px-4 py-2.5 text-[13px] outline-none focus:bg-white focus:ring-2 focus:ring-[#0071e3] transition"
-                    />
-                  </div>
-                </div>
-              </div>
-
-              {/* ACTION BUTTONS */}
-              <div className="flex gap-3 pt-4 border-t border-gray-150">
-                <button
-                  type="button"
-                  disabled={loading}
-                  onClick={() => setShowAddModal(false)}
-                  className="w-1/2 bg-gray-100 hover:bg-gray-200 disabled:opacity-50 text-gray-750 font-bold py-3 rounded-xl transition text-[13px]"
-                >
-                  Cancel
-                </button>
-                <button
-                  type="submit"
-                  disabled={loading}
-                  className="w-1/2 bg-[#0071e3] hover:bg-[#0077ed] disabled:opacity-50 text-white font-bold py-3 rounded-xl transition text-[13px] shadow-md shadow-blue-100 flex items-center justify-center gap-2"
-                >
-                  {loading ? (
-                    <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                  ) : "Create Doctor"}
-                </button>
-              </div>
-            </form>
-          </div>
-        </div>
+        <AdminAddDoctorModal
+          newDoctor={newDoctor}
+          setNewDoctor={setNewDoctor}
+          handleCreateDoctor={handleCreateDoctor}
+          loading={loading}
+          generateRandomPassword={generateRandomPassword}
+          setShowAddModal={setShowAddModal}
+        />
       )}
-
     </div>
   );
 }

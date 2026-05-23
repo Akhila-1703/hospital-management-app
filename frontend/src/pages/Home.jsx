@@ -24,6 +24,7 @@ import {
   ChevronUp,
   Baby
 } from "lucide-react";
+import { getSpecialtyIcon } from "../utils/helpers";
 
 import {
   pageBackground,
@@ -165,36 +166,7 @@ function Home() {
     },
   ];
 
-  // Icon mapper for specializations
-  const getSpecialtyIcon = (name) => {
-    switch (name.toLowerCase()) {
-      case "cardiology":
-        return <Heart className="w-8 h-8 text-rose-500" />;
-      case "orthopedics":
-        return <Activity className="w-8 h-8 text-emerald-500" />;
-      case "neurology":
-        return <Brain className="w-8 h-8 text-indigo-500" />;
-      case "pediatrics":
-        return <Users className="w-8 h-8 text-amber-500" />;
-      case "gynecology & obstetrics":
-      case "gynecology":
-        return <Baby className="w-8 h-8 text-pink-500" />;
-      case "ophthalmology":
-        return <Eye className="w-8 h-8 text-sky-500" />;
-      case "dentistry":
-        return <Smile className="w-8 h-8 text-teal-500" />;
-      case "pulmonology":
-        return <Activity className="w-8 h-8 text-cyan-500" />;
-      case "dermatology":
-        return <Sparkles className="w-8 h-8 text-violet-500" />;
-      case "ent":
-        return <Scissors className="w-8 h-8 text-orange-500" />;
-      case "oncology":
-        return <ShieldAlert className="w-8 h-8 text-purple-500" />;
-      default:
-        return <Stethoscope className="w-8 h-8 text-blue-500" />;
-    }
-  };
+
 
   const specialtiesData = [
     { name: "Cardiology", desc: "Heart care and treatments", img: cardiology },
@@ -537,7 +509,7 @@ function Home() {
                 {/* Specialty Header */}
                 <div className="flex justify-between items-start mb-5">
                   <div className="w-14 h-14 bg-slate-50 text-slate-700 rounded-2xl flex items-center justify-center group-hover:bg-blue-50 group-hover:text-blue-600 transition-colors duration-300">
-                    {getSpecialtyIcon(spec.name)}
+                    {getSpecialtyIcon(spec.name, "w-8 h-8")}
                   </div>
                   
                   {/* Miniature decorative specialization tag */}
