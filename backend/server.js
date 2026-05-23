@@ -144,8 +144,16 @@ const connectDB = async () => {
 
 connectDB();
 
+// SERVE FRONTEND STATIC FILES (for production)
+const __dirname = path.resolve();
+app.use(exp.static(path.join(__dirname, "../frontend/dist")));
 
-// INVALID ROUTE HANDLER
+// SPA FALLBACK ROUTE - Serve index.html for all unmatched routes
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "../frontend/dist/index.html"));
+});
+
+// INVALID ROUTE HANDLER (fallback)
 app.use((req, res) => {
   res.status(404).json({
     message: `${req.url} is invalid path`,
