@@ -107,10 +107,8 @@ function AdminDashboard() {
         availableTime: ""
       });
       
-      // Refresh lists
-      getDoctors();
-      getStats();
-      getRecentUsers();
+      // Refresh lists and wait for all to complete
+      await Promise.all([getDoctors(), getStats(), getRecentUsers()]);
       setLoading(false);
     } catch (err) {
       console.log(err);
@@ -124,6 +122,7 @@ function AdminDashboard() {
     try {
       const res = await axios.get("/admin-api/stats");
       setStats(res.data.payload);
+      return res.data.payload;
     } catch (err) {
       console.log(err);
       toast.error("Failed to fetch stats");
@@ -137,6 +136,7 @@ function AdminDashboard() {
         "/admin-api/recent-users"
       );
       setRecentUsers(res.data.payload);
+      return res.data.payload;
     } catch (err) {
       console.log(err);
       toast.error("Failed to fetch recent users");
@@ -150,6 +150,7 @@ function AdminDashboard() {
         "/admin-api/doctors"
       );
       setDoctors(res.data.payload);
+      return res.data.payload;
     } catch (err) {
       console.log(err);
       toast.error("Failed to fetch doctors");
@@ -163,6 +164,7 @@ function AdminDashboard() {
         "/admin-api/patients"
       );
       setPatients(res.data.payload);
+      return res.data.payload;
     } catch (err) {
       console.log(err);
       toast.error("Failed to fetch patients");
@@ -176,6 +178,7 @@ function AdminDashboard() {
         "/admin-api/all-appointments"
       );
       setAppointments(res.data.payload);
+      return res.data.payload;
     } catch (err) {
       console.log(err);
       toast.error("Failed to fetch appointments");
@@ -189,6 +192,7 @@ function AdminDashboard() {
         "/admin-api/all-prescriptions"
       );
       setPrescriptions(res.data.payload);
+      return res.data.payload;
     } catch (err) {
       console.log(err);
       toast.error("Failed to fetch prescriptions");
@@ -205,10 +209,8 @@ function AdminDashboard() {
       
       toast.success(res.data.message);
       
-      getRecentUsers();
-      getDoctors();
-      getPatients();
-      getStats(); // Refresh stats after status update
+      // Refresh all data and wait for completion
+      await Promise.all([getRecentUsers(), getDoctors(), getPatients(), getStats()]);
       
       setLoading(false);
     } catch (err) {
