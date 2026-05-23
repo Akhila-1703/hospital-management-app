@@ -1,11 +1,16 @@
 import exp from "express"
 import bcrypt from "bcryptjs";
 import { UserTypeModel } from "../models/UserModel.js"
+import { DoctorModel } from "../models/DoctorModel.js";
 import { AppointmentModel } from "../models/AppointmentModel.js";
 import { PrescriptionModel } from "../models/PrescriptionModel.js";
 import { sendDoctorCredentials } from "../services/emailService.js";
+import { verifyToken } from "../middleware/verifyToken.js";
 
 export const adminRoute = exp.Router()
+
+// Protect all admin routes - require ADMIN role
+adminRoute.use(verifyToken("ADMIN"));
 
 
 // get active doctors
@@ -72,8 +77,6 @@ adminRoute.get("/patients", async(req,res,next)=>{
 
 
 // toggle doctor status
-import { DoctorModel } from "../models/DoctorModel.js";
-
 // ======================================================
 // VERIFY DOCTOR BY ADMIN
 // ======================================================
