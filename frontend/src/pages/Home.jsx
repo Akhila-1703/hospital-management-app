@@ -419,7 +419,7 @@ function Home() {
 
       {/* ─── LIVE STATISTICS GRID ─── */}
       <section className="py-20 max-w-7xl mx-auto px-6 md:px-12">
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-6.5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6.5">
           
           <div className="bg-white/60 border border-slate-100 rounded-3xl p-6.5 hover:shadow-xl hover:shadow-slate-100/50 transition-all duration-300 text-center flex flex-col items-center">
             <div className="w-12 h-12 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center mb-4">

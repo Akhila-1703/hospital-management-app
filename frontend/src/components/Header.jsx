@@ -16,6 +16,8 @@ import {
   MapPin,
   Clock,
   ChevronDown,
+  Menu,
+  X,
 } from "lucide-react";
 
 function Header() {
@@ -29,6 +31,8 @@ function Header() {
   const [open, setOpen] = useState(false);
 
   const [locationOpen, setLocationOpen] = useState(false);
+
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   // hospital locations
   const hospitalLocations = [
@@ -130,8 +134,8 @@ function Header() {
 
           </div>
 
-          {/* RIGHT NAVIGATION */}
-          <div className="flex items-center gap-3 md:gap-4">
+          {/* RIGHT NAVIGATION (DESKTOP) */}
+          <div className="hidden md:flex items-center gap-3 md:gap-4">
 
             {/* HOME */}
             <NavLink
@@ -533,7 +537,132 @@ function Header() {
 
           </div>
 
+          {/* MOBILE HAMBURGER BUTTON */}
+          <div className="flex md:hidden items-center gap-2">
+            {isAuthenticated && (
+              <img
+                src={
+                  currentUser?.profileImage
+                    ? currentUser.profileImage.startsWith("http")
+                      ? currentUser.profileImage
+                      : `${currentUser.profileImage}`
+                    : "https://cdn-icons-png.flaticon.com/512/149/149071.png"
+                }
+                alt="profile"
+                onClick={() => navigate(currentUser?.role === "PATIENT" ? "/patient-profile" : currentUser?.role === "DOCTOR" ? "/doctor-form" : "/admin-dashboard")}
+                className="w-8 h-8 rounded-xl object-cover border border-blue-100 shadow-sm cursor-pointer"
+              />
+            )}
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="p-2 rounded-xl bg-gray-50 border border-gray-100 hover:bg-gray-100 transition text-gray-600 focus:outline-none"
+            >
+              {mobileMenuOpen ? <X size={18} /> : <Menu size={18} />}
+            </button>
+          </div>
+
         </div>
+
+        {/* MOBILE DROPDOWN MENU */}
+        {mobileMenuOpen && (
+          <div className="md:hidden bg-white border-t border-gray-100 px-6 py-4 flex flex-col gap-3 animate-fadeIn">
+            <NavLink
+              to="/"
+              onClick={() => setMobileMenuOpen(false)}
+              className={navLinkStyle}
+            >
+              <Home size={16} />
+              <span>Home</span>
+            </NavLink>
+            <NavLink
+              to="/doctors"
+              onClick={() => setMobileMenuOpen(false)}
+              className={navLinkStyle}
+            >
+              <Stethoscope size={16} />
+              <span>Doctors</span>
+            </NavLink>
+            
+            <div className="py-2 border-t border-b border-gray-50">
+              <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest px-3 mb-2">Our Branches</p>
+              <div className="flex flex-wrap gap-1 px-3">
+                <span className="text-[11px] font-medium text-gray-500 bg-gray-50 border border-gray-100 rounded-lg px-2 py-0.5">Hyderabad</span>
+                <span className="text-[11px] font-medium text-gray-500 bg-gray-50 border border-gray-100 rounded-lg px-2 py-0.5">Warangal</span>
+                <span className="text-[11px] font-medium text-gray-500 bg-gray-50 border border-gray-100 rounded-lg px-2 py-0.5">Vijayawada</span>
+                <span className="text-[11px] font-medium text-gray-500 bg-gray-50 border border-gray-100 rounded-lg px-2 py-0.5">Visakhapatnam</span>
+              </div>
+            </div>
+
+            {isAuthenticated && (
+              <NavLink
+                to={
+                  currentUser?.role === "PATIENT"
+                    ? "/patient-dashboard"
+                    : currentUser?.role === "DOCTOR"
+                    ? "/doctor-dashboard"
+                    : "/admin-dashboard"
+                }
+                onClick={() => setMobileMenuOpen(false)}
+                className={navLinkStyle}
+              >
+                <LayoutDashboard size={16} />
+                <span>Dashboard</span>
+              </NavLink>
+            )}
+
+            {!isAuthenticated ? (
+              <div className="flex flex-col gap-2 pt-2 border-t border-gray-50">
+                <Link
+                  onClick={() => setMobileMenuOpen(false)}
+                  to="/login"
+                  className="flex items-center justify-center gap-1.5 text-gray-650 hover:text-blue-600 font-semibold text-sm py-2 rounded-xl border border-gray-100 bg-gray-50/50 hover:bg-gray-50 transition"
+                >
+                  <LogIn size={15} />
+                  <span>Login</span>
+                </Link>
+                <Link
+                  onClick={() => setMobileMenuOpen(false)}
+                  to="/register"
+                  className="flex items-center justify-center gap-1.5 bg-linear-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold text-sm py-2 rounded-xl transition"
+                >
+                  <UserPlus size={15} />
+                  <span>Register</span>
+                </Link>
+              </div>
+            ) : (
+              <div className="flex flex-col gap-2 pt-2 border-t border-gray-50">
+                <div className="px-3 py-2 flex items-center gap-3 bg-gray-50 rounded-xl">
+                  <img
+                    src={
+                      currentUser?.profileImage
+                        ? currentUser.profileImage.startsWith("http")
+                          ? currentUser.profileImage
+                          : `${currentUser.profileImage}`
+                        : "https://cdn-icons-png.flaticon.com/512/149/149071.png"
+                    }
+                    alt="profile"
+                    className="w-8 h-8 rounded-lg object-cover"
+                  />
+                  <div>
+                    <p className="text-xs font-bold text-gray-800">{currentUser?.name}</p>
+                    <span className="text-[9px] font-bold text-blue-600 uppercase">{currentUser?.role}</span>
+                  </div>
+                </div>
+                
+                <button
+                  onClick={() => {
+                    setMobileMenuOpen(false);
+                    handleLogout();
+                  }}
+                  className="w-full flex items-center justify-center gap-2 border border-red-100 hover:bg-red-50 text-red-500 rounded-xl py-2 text-sm font-semibold transition mt-1"
+                >
+                  <LogOut size={14} />
+                  <span>Logout</span>
+                </button>
+              </div>
+            )}
+          </div>
+        )}
 
       </nav>
 

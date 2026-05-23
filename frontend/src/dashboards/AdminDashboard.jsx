@@ -18,7 +18,8 @@ import {
   Check,
   Plus,
   X,
-  Key
+  Key,
+  Menu
 } from "lucide-react";
 import { toast } from "react-hot-toast";
 import { useAuth } from "../store/authStore";
@@ -39,6 +40,7 @@ import {
 function AdminDashboard() {
   const { user, logout } = useAuth();
   const [activeTab, setActiveTab] = useState("dashboard");
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   
   const [recentUsers, setRecentUsers] = useState([]);
   const [doctors, setDoctors] = useState([]);
@@ -812,8 +814,24 @@ function AdminDashboard() {
   return (
     <div className={`min-h-screen bg-[#fafafa] flex flex-col md:flex-row antialiased ${bodyFont}`}>
       
+      {/* MOBILE OVERLAY */}
+      {isMobileMenuOpen && (
+        <div 
+          className="fixed inset-0 bg-black/50 z-40 md:hidden transition-opacity" 
+          onClick={() => setIsMobileMenuOpen(false)}
+        />
+      )}
+
       {/* SIDEBAR */}
-      <div className={`w-full md:w-60 flex flex-col shrink-0 p-5 ${adminSidebarBg}`}>
+      <div className={`fixed inset-y-0 left-0 z-50 w-64 md:relative md:w-60 flex flex-col shrink-0 p-5 ${adminSidebarBg} transform transition-transform duration-300 ease-in-out ${isMobileMenuOpen ? "translate-x-0" : "-translate-x-full"} md:translate-x-0 h-full overflow-y-auto shadow-2xl md:shadow-none`}>
+        
+        {/* MOBILE CLOSE BUTTON */}
+        <button 
+          className="md:hidden absolute top-5 right-5 text-gray-500 hover:text-gray-800"
+          onClick={() => setIsMobileMenuOpen(false)}
+        >
+          <X size={20} />
+        </button>
         
         {/* LOGO AREA */}
         <div className="flex items-center gap-3 mb-6">
@@ -836,7 +854,10 @@ function AdminDashboard() {
         {/* NAVIGATION LINKS */}
         <nav className="flex-1 space-y-1">
           <button
-            onClick={() => setActiveTab("dashboard")}
+            onClick={() => {
+              setActiveTab("dashboard");
+              setIsMobileMenuOpen(false);
+            }}
             className={`w-full flex items-center gap-3 px-3 py-2 rounded-xl transition font-semibold text-[13px] ${
               activeTab === "dashboard" ? adminActiveTab : adminInactiveTab
             }`}
@@ -846,7 +867,10 @@ function AdminDashboard() {
           </button>
 
           <button
-            onClick={() => setActiveTab("doctors")}
+            onClick={() => {
+              setActiveTab("doctors");
+              setIsMobileMenuOpen(false);
+            }}
             className={`w-full flex items-center gap-3 px-3 py-2 rounded-xl transition font-semibold text-[13px] ${
               activeTab === "doctors" ? adminActiveTab : adminInactiveTab
             }`}
@@ -856,7 +880,10 @@ function AdminDashboard() {
           </button>
 
           <button
-            onClick={() => setActiveTab("patients")}
+            onClick={() => {
+              setActiveTab("patients");
+              setIsMobileMenuOpen(false);
+            }}
             className={`w-full flex items-center gap-3 px-3 py-2 rounded-xl transition font-semibold text-[13px] ${
               activeTab === "patients" ? adminActiveTab : adminInactiveTab
             }`}
@@ -866,7 +893,10 @@ function AdminDashboard() {
           </button>
 
           <button
-            onClick={() => setActiveTab("appointments")}
+            onClick={() => {
+              setActiveTab("appointments");
+              setIsMobileMenuOpen(false);
+            }}
             className={`w-full flex items-center gap-3 px-3 py-2 rounded-xl transition font-semibold text-[13px] ${
               activeTab === "appointments" ? adminActiveTab : adminInactiveTab
             }`}
@@ -876,7 +906,10 @@ function AdminDashboard() {
           </button>
 
           <button
-            onClick={() => setActiveTab("prescriptions")}
+            onClick={() => {
+              setActiveTab("prescriptions");
+              setIsMobileMenuOpen(false);
+            }}
             className={`w-full flex items-center gap-3 px-3 py-2 rounded-xl transition font-semibold text-[13px] ${
               activeTab === "prescriptions" ? adminActiveTab : adminInactiveTab
             }`}
@@ -886,7 +919,10 @@ function AdminDashboard() {
           </button>
 
           <button
-            onClick={() => setActiveTab("profile")}
+            onClick={() => {
+              setActiveTab("profile");
+              setIsMobileMenuOpen(false);
+            }}
             className={`w-full flex items-center gap-3 px-3 py-2 rounded-xl transition font-semibold text-[13px] ${
               activeTab === "profile" ? adminActiveTab : adminInactiveTab
             }`}
@@ -922,12 +958,20 @@ function AdminDashboard() {
       <div className="flex-1 flex flex-col overflow-auto bg-[#fafafa]">
         
         {/* TOP BAR / PORTAL HEADER */}
-        <header className="px-6 md:px-10 py-4 bg-white border-b border-[#e8e8ed] flex items-center justify-between shrink-0">
-          <div>
-            <p className="text-[9px] font-bold text-gray-400 uppercase tracking-widest leading-none">Admin Portal</p>
-            <h2 className="text-[14px] font-bold text-[#1d1d1f] mt-1">{getActiveTabTitle()}</h2>
+        <header className="px-6 md:px-10 py-4 bg-white border-b border-[#e8e8ed] flex items-center justify-between shrink-0 sticky top-0 z-30">
+          <div className="flex items-center gap-4">
+            <button 
+              className="md:hidden p-2 -ml-2 rounded-lg bg-gray-50 text-gray-600 border border-gray-200"
+              onClick={() => setIsMobileMenuOpen(true)}
+            >
+              <Menu size={18} />
+            </button>
+            <div>
+              <p className="text-[9px] font-bold text-gray-400 uppercase tracking-widest leading-none">Admin Portal</p>
+              <h2 className="text-[14px] font-bold text-[#1d1d1f] mt-1">{getActiveTabTitle()}</h2>
+            </div>
           </div>
-          <div className="border border-[#d2d2d7] rounded-full px-3 py-1 text-[11px] text-gray-500 font-medium bg-[#fafafa]">
+          <div className="hidden sm:block border border-[#d2d2d7] rounded-full px-3 py-1 text-[11px] text-gray-500 font-medium bg-[#fafafa]">
             {getHeaderDate()}
           </div>
         </header>
@@ -1042,7 +1086,6 @@ function AdminDashboard() {
                       className="w-full border border-gray-200 bg-gray-50 rounded-xl px-4 py-2.5 text-[13px] outline-none focus:bg-white focus:ring-2 focus:ring-[#0071e3] transition text-gray-700 font-medium"
                     >
                       <option value="" disabled>Select Specialization</option>
-                      <option value="General Physician">General Physician</option>
                       <option value="Cardiology">Cardiology</option>
                       <option value="Orthopedics">Orthopedics</option>
                       <option value="Neurology">Neurology</option>
@@ -1051,10 +1094,6 @@ function AdminDashboard() {
                       <option value="Ophthalmology">Ophthalmology</option>
                       <option value="Dentistry">Dentistry</option>
                       <option value="Pulmonology">Pulmonology</option>
-                      <option value="Dermatology">Dermatology</option>
-                      <option value="ENT">ENT</option>
-                      <option value="Oncology">Oncology</option>
-                      <option value="Physiotherapy">Physiotherapy</option>
                     </select>
                   </div>
 

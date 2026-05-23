@@ -445,7 +445,6 @@ function AddDoctor() {
                     required
                   >
                     <option value="" disabled>Select Specialization</option>
-                    <option value="General Physician">General Physician</option>
                     <option value="Cardiology">Cardiology</option>
                     <option value="Orthopedics">Orthopedics</option>
                     <option value="Neurology">Neurology</option>
@@ -454,10 +453,6 @@ function AddDoctor() {
                     <option value="Ophthalmology">Ophthalmology</option>
                     <option value="Dentistry">Dentistry</option>
                     <option value="Pulmonology">Pulmonology</option>
-                    <option value="Dermatology">Dermatology</option>
-                    <option value="ENT">ENT</option>
-                    <option value="Oncology">Oncology</option>
-                    <option value="Physiotherapy">Physiotherapy</option>
                   </select>
                 </div>
               </div>
