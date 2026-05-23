@@ -1,239 +1,144 @@
 <div align="center">
-  
+
 # 🏥 Peoplecare International Hospital
 
 ### Full-Stack Hospital Management Platform (MERN)
 
-A modern and secure hospital management platform built using the **MERN Stack**.
-
-Designed to simplify healthcare workflows through role-based access control, appointment coordination, patient management, and centralized hospital operations.
-
-Built with scalability, maintainability, and deployment-ready architecture.
+A modern hospital management platform designed to streamline healthcare operations through secure authentication, appointment coordination, and centralized user experiences.
 
 </div>
 
 ---
 
-# 🌟 1. Project Vision
+## 🌟 Project Overview
 
-Peoplecare International Hospital is designed to digitize and streamline hospital workflows through a centralized platform for patients, doctors, and administrators.
+Peoplecare International Hospital is a centralized healthcare platform created to improve the interaction between patients, doctors, and administrators.
 
-The platform focuses on:
-
-- Secure access and authentication
-- Simplified appointment workflows
-- Centralized patient interactions
-- Modern dashboard experience
-- Cloud-ready deployment
-- Scalable full-stack architecture
+The application provides structured workflows, secure access control, and a modern user experience while maintaining deployment-ready architecture.
 
 ---
 
-# 👥 2. Roles & Permissions
+## 🚀 Platform Features
 
-The application follows a role-based access model.
+### 🔐 Authentication & Security
 
-| Role | Access Scope |
-|------|------|
-| **Patient** | Register, login, manage profile, view and book appointments |
-| **Doctor** | Access dashboard and manage appointment workflows |
-| **Admin** | Manage users and oversee hospital operations |
-
----
-
-# 🚀 3. Core Platform Features
-
-## 🔐 Authentication & Access Control
-
-- Secure User Authentication
-- JWT-Based Session Management
+- Secure Registration & Login
+- JWT Authentication
 - Protected Routes
-- Role-Based Access Control (RBAC)
-- Persistent Login Experience
-- Environment-Based Configuration
+- Role-Based Access Control
+- Persistent Session Experience
 
 ---
 
-## 👤 User Management
+### 👤 Patient Experience
 
-- User Registration
-- Login & Logout
-- Profile Management
-- Change Password Functionality
-- Role-Specific Dashboard Access
-
----
-
-## 🏥 Hospital Management
-
-- Appointment Booking
-- Appointment Tracking
-- Doctor Management
-- Patient Management
-- Schedule Handling
-- Centralized Hospital Operations
+- Create and manage account
+- Book appointments
+- Track appointment activity
+- Access personalized dashboard
 
 ---
 
-## 📅 Scheduling Experience
+### 🩺 Doctor Experience
 
-- Calendar Integration
-- Appointment Scheduling
-- Interactive Date Selection
-
----
-
-## 📍 Location Services
-
-- Hospital Location Visualization
-- Map Integration
+- Access secure dashboard
+- Manage appointment workflows
+- View patient-related interactions
 
 ---
 
-## ☁️ Deployment Ready
+### 🏥 Administration
 
-- Frontend Deployment Support
-- Backend Deployment Support
-- Cloud Database Integration
-- Environment Variable Configuration
-
----
-
-# 🧩 4. Product Highlights
-
-### Frontend Experience
-
-- Component-Based Architecture
-- Responsive User Interface
-- Layout-Based Navigation
-- Centralized State Management
+- Manage system users
+- Monitor platform activity
+- Access centralized administration tools
 
 ---
 
-### Backend Engineering
+### 📅 Scheduling
 
-- Modular API Structure
-- Middleware-Based Request Processing
-- Organized Data Models
-- Scalable Server Architecture
-
----
-
-### Production Practices
-
-- Environment Separation
-- Deployment Configuration
-- Secure Cross-Origin Communication
-- Production Build Optimization
+- Interactive calendar experience
+- Appointment scheduling
+- Schedule visibility
 
 ---
 
-# ⚙️ 5. Local Development Setup
+### 📍 User Experience
 
-## Prerequisites
-
-- Node.js (v18+)
-- MongoDB Atlas
-- Git
-- Render Account
-- Vercel Account
+- Responsive interface
+- Location visualization
+- Cross-device compatibility
 
 ---
 
-## Clone Repository
+## 👥 User Access
+
+| User Type | Primary Capability |
+|----------|-------------------|
+| Patient | Appointment and profile management |
+| Doctor | Workflow and appointment management |
+| Admin | System administration and platform control |
+
+---
+
+## 🌐 Live Access
+
+### Application
+
+Frontend
+
+```text
+https://hospital-management-f7nxsynzb-akhilas-projects-29fa9b92.vercel.app/
+```
+
+Backend
+
+```text
+https://hospital-management-app-g81n.onrender.com
+```
+
+---
+
+## ⚙️ Quick Start
+
+Clone the repository:
 
 ```bash
 git clone <repository-url>
 cd hospital-management-app
 ```
 
----
-
-## Backend Setup
+Run backend:
 
 ```bash
 cd backend
 npm install
-```
-
-Configure environment variables.
-
-Run:
-
-```bash
 npm start
 ```
 
----
-
-## Frontend Setup
+Run frontend:
 
 ```bash
 cd frontend
 npm install
-```
-
-Run:
-
-```bash
 npm run dev
 ```
 
 ---
 
-# 🌐 6. Deployment
+## 📚 Project Documentation
 
-| Service | Purpose |
-|----------|----------|
-| Vercel | Frontend Hosting |
-| Render | Backend Hosting |
-| MongoDB Atlas | Database |
+Detailed technical documentation is maintained separately.
 
----
-
-# 📚 7. Internal Documentation
-
-Detailed implementation and folder-level documentation are available separately.
-
-- 📂 `backend/README.md`
-- 📂 `frontend/README.md`
-
----
-
-# 🛠️ 8. Technology Stack
-
-## Frontend
-
-- React
-- Vite
-- Tailwind CSS
-- Zustand
-- React Router
-- Axios
-- FullCalendar
-
----
-
-## Backend
-
-- Node.js
-- Express.js
-- MongoDB
-- Mongoose
-- JWT
-
----
-
-## Deployment
-
-- Vercel
-- Render
-- MongoDB Atlas
+| Documentation | Description |
+|--------------|-------------|
+| `backend/README.md` | Backend architecture, APIs, schemas, packages, deployment |
+| `frontend/README.md` | Frontend architecture, components, packages, UI flows |
 
 ---
 
 <div align="center">
 
-Built for maintainability, scalability, and modern healthcare workflows.
+Built to support modern healthcare workflows with scalability, maintainability, and production deployment practices.
 
 </div>
