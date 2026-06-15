@@ -1,6 +1,6 @@
 <div align="center">
 
-# 🎨 Frontend Architecture & UI Documentation
+# Frontend Architecture & UI Documentation
 
 ### Peoplecare International Hospital
 
@@ -12,7 +12,7 @@ It documents the UI architecture, component organization, routing flow, environm
 
 ---
 
-# 🏗️ 1. Frontend Architecture & Application Flow
+# 1. Frontend Architecture & Application Flow
 
 The frontend is implemented as a modern **React Single Page Application (SPA)** built with **Vite**.
 
@@ -85,7 +85,7 @@ Backend APIs
 
 ---
 
-# 🚀 2. Local Installation & Setup
+# 2. Local Installation & Setup
 
 ## Install Dependencies
 
@@ -132,7 +132,7 @@ http://localhost:5173
 
 ---
 
-# 🌐 3. Production Deployment
+# 3. Production Deployment
 
 Frontend Deployment:
 
@@ -152,7 +152,7 @@ https://hospital-management-app-g81n.onrender.com
 
 ---
 
-# 📂 4. Frontend Project Structure
+# 4. Frontend Project Structure
 
 ```text
 frontend/
@@ -211,7 +211,7 @@ frontend/
 
 ---
 
-# 📦 5. Package Documentation
+# 5. Package Documentation
 
 Install all packages:
 
@@ -387,7 +387,7 @@ npm install lucide-react
 
 ---
 
-# 🛡️ 6. State Management & Security
+# 6. State Management & Security
 
 ## Authentication Flow
 
@@ -442,7 +442,7 @@ Responsibilities:
 
 ---
 
-# ⚡ 7. Build & Deployment
+# 7. Build & Deployment
 
 Build:
 

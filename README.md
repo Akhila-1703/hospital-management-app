@@ -1,6 +1,6 @@
 <div align="center">
 
-# 🏥 Peoplecare International Hospital
+# Peoplecare International Hospital
 
 ### Full-Stack Hospital Management Platform (MERN)
 
@@ -10,7 +10,7 @@ A modern hospital management platform built to simplify healthcare operations th
 
 ---
 
-## 🌟 Project Overview
+## Project Overview
 
 Peoplecare International Hospital is a centralized healthcare platform developed to improve collaboration between patients, doctors, and administrators.
 
@@ -18,9 +18,9 @@ The system combines appointment scheduling, medical record management, prescript
 
 ---
 
-## 🚀 Platform Features
+## Platform Features
 
-### 🔐 Authentication & Security
+### Authentication & Security
 
 - Secure Registration & Login
 - JWT Authentication
@@ -31,7 +31,7 @@ The system combines appointment scheduling, medical record management, prescript
 
 ---
 
-### 👤 Patient Management
+### Patient Management
 
 - Patient Registration & Profile Management
 - Patient Record Management (CRUD)
@@ -42,7 +42,7 @@ The system combines appointment scheduling, medical record management, prescript
 
 ---
 
-### 🩺 Doctor Management
+### Doctor Management
 
 - Doctor Profile Management
 - Doctor Specialization Support
@@ -52,7 +52,7 @@ The system combines appointment scheduling, medical record management, prescript
 
 ---
 
-### 📅 Appointment & Scheduling
+### Appointment & Scheduling
 
 - Appointment Booking
 - Appointment Scheduling
@@ -62,7 +62,7 @@ The system combines appointment scheduling, medical record management, prescript
 
 ---
 
-### 🏥 Hospital Administration
+### Hospital Administration
 
 - User Management
 - Doctor Management
@@ -73,7 +73,7 @@ The system combines appointment scheduling, medical record management, prescript
 
 ---
 
-### 🔎 Search & Productivity
+### Search & Productivity
 
 - Search Patients
 - Search Doctors
@@ -82,7 +82,7 @@ The system combines appointment scheduling, medical record management, prescript
 
 ---
 
-### 📂 Medical Records & Documents
+### Medical Records & Documents
 
 - Electronic Medical Records
 - Medical History Logs
@@ -92,7 +92,7 @@ The system combines appointment scheduling, medical record management, prescript
 
 ---
 
-### 🔔 Notification System
+### Notification System
 
 - Appointment Confirmation Notifications
 - Appointment Reminder Emails
@@ -101,7 +101,7 @@ The system combines appointment scheduling, medical record management, prescript
 
 ---
 
-### 📍 Platform Experience
+### Platform Experience
 
 - Responsive Interface
 - Calendar Integration
@@ -110,7 +110,7 @@ The system combines appointment scheduling, medical record management, prescript
 
 ---
 
-## 👥 User Access
+## User Access
 
 | User Type | Primary Capability |
 |----------|-------------------|
@@ -120,7 +120,7 @@ The system combines appointment scheduling, medical record management, prescript
 
 ---
 
-## 🌐 Live Access
+## Live Access
 
 ### Application
 
@@ -138,7 +138,7 @@ https://hospital-management-app-g81n.onrender.com
 
 ---
 
-## ⚙️ Quick Start
+## Quick Start
 
 Clone repository:
 
@@ -165,7 +165,7 @@ npm run dev
 
 ---
 
-## 📚 Documentation
+## Documentation
 
 Detailed technical documentation is maintained separately.
 

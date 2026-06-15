@@ -1,6 +1,6 @@
 <div align="center">
 
-# ⚙️ Backend Architecture & API Documentation
+# Backend Architecture & API Documentation
 
 ### Peoplecare International Hospital
 
@@ -12,7 +12,7 @@ It documents the backend architecture, environment configuration, package ecosys
 
 ---
 
-# 🏗️ 1. Backend Architecture Overview
+# 1. Backend Architecture Overview
 
 The backend is built using a modular **Node.js + Express + MongoDB** architecture.
 
@@ -51,7 +51,7 @@ JSON Response
 
 ---
 
-# 🚀 2. Local Installation & Setup
+# 2. Local Installation & Setup
 
 ## Install Dependencies
 
@@ -100,7 +100,7 @@ http://localhost:4000
 
 ---
 
-# 🌐 3. Production Deployment
+# 3. Production Deployment
 
 ## Backend Deployment
 
@@ -115,7 +115,7 @@ Hosted using:
 
 ---
 
-# 📂 4. Backend Project Structure
+# 4. Backend Project Structure
 
 ```text
 backend/
@@ -155,7 +155,7 @@ backend/
 
 ---
 
-# 📦 5. Package Documentation
+# 5. Package Documentation
 
 Install all packages:
 
@@ -231,7 +231,7 @@ npm install -D nodemon
 
 ---
 
-# 🗄️ 6. Database Schemas
+# 6. Database Schemas
 
 ## User Schema
 
@@ -297,7 +297,7 @@ Appointment
 
 ---
 
-# 🌐 7. API Documentation
+# 7. API Documentation
 
 Base URL:
 
@@ -360,7 +360,7 @@ https://hospital-management-app-g81n.onrender.com
 
 ---
 
-# 🔐 8. Authentication Strategy
+# 8. Authentication Strategy
 
 Authentication flow:
 
